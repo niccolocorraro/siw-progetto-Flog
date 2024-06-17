@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Ricette</title>
+
+	<link rel="stylesheet" href="css/stile.css" />
+	<link rel="stylesheet" href="css/bootstrapcss/bootstrap.min.css" />
+	<link rel="stylesheet" href="\css\icon\bootstrap-icons-1.11.3\font\bootstrap-icons.min.css" />
+	<script defer src="js/bootstrap.bundle.min.js"></script>
+  </head>
+
+<body>
+
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary blu1">
+    <div class="container blu1" style="border-radius: 20px;height: 55px;">
+      <a class="navbar-brand " >FLOG</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active bi bi-house" aria-current="page" href="/"></a>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2 " style="text-decoration: white;" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit" >Search</button>
+        </form>
+        <a class="btn bi bi-person-circle ms-1" style="background-color: white;" href="/login"></a>
+      </div>
+    </div>
+  </nav>
+  
+  
+
+     <div class="container-lg my-1 gia1 text-center" style="border-radius: 15px;">
+      <div class="row  text-center  align-items-center justify-content-center">
+
+        <div class="col p-1  text-center " >
+          <img class="img-fluid img-thumbnail " src="/images/nostreRicette.jpg" style="width: 200px; height: auto">
+          
+        </div>
+        <div class="col-6 p-5  text-center p-3">
+
+          <h1 class="display-3">Le Nostre Ricette</h1>
+          <p class="display-6">l'arte di cucinare</p>
+
+        </div>
+         <div class="col p-1  text-center " >
+          <img class="img-fluid img-thumbnail " src="/images/nostreRicette.jpg" style="width: 200px; height: auto">
+          
+        </div>
+        </div>
+      </div>
+
+    </div>
+     
+
+    
+
+    
+
+    <div class="container blu3 text-center my-1" style="border-radius: 15px;">
+      <div class="row  my-1 align-items-center justify-content-centers">
+        <div class="col-4 p-2 my-1 blu3 " style="vertical-align: middle;">
+          <a href="#primi" type="button" class="btn btn-outline-primary btn-lg ">Vai ai Primi </a>
+        </div>
+
+        <div class="col-4 p-3 blu2" style="vertical-align: middle;">
+      
+          <a href="#secondi" type="button" class="btn btn-outline-primary btn-lg">Vai ai Secondi</a>
+        </div>
+
+        <div class="col-4 p-2 my-1 blu3" style="vertical-align: middle;">
+          <a href="#dolci" type="button" class="btn btn-outline-primary btn-lg">Vai ai Dolci</a>
+        </div>
+      </div>
+    </div>
+    
+    
+    <section id="delgiorno">
+		<div class="container coldue p-1" style="border-radius: 15px;">
+		
+		
+      
+		      
+	      
+	      <div class="container text-center my-1 ">
+	        <div class="row justify-content-center d-flex justify-content-center ">
+				
+				<div class="col " style="background-color:rgb(181, 232, 233,0.9) ;border-radius: 20px; width: 100%; border-style: double; border-color: white; ">
+					<div class="container my-3">
+      	  			<h2 class="display-10  text-center  "  >I nostri Piatti del giorno </h2>
+    			  	<p class="small">Prova i nostri piatti preferiti di oggi, troverari qui ogni giorno 4 nuovi piatti suggeriti dal nostro team!</p>
+    			  	</div>
+				</div>
+				
+	            <div  class="col-lg-2 col-md-3 mb-1" th:each="ricetta : ${randomRicette}" >
+	                <div th:if="${randomRicette==null || randomRicette.isEmpty()}" style="color: white;">Non ci sono</div>
+	
+	                    <div class="card coluno" style="border-radius: 20px;border-color: #b5e8e9; border-style: double;">
+	                        <span><img width="75%" th:src=${ricetta.copertina} class="mt-3" style="border-radius: 20px;height: 70%;"/></span>
+	                        <div class="card-body"style="height: 100px;">
+	                            <h6 class="card-title carta-testo" th:text="${ricetta.nome}"></h6>
+	                            <a th:href="@{'/ricetta' + '/' + ${ricetta.id}}">Dettagli</a>
+	                        </div>
+	                    </div>
+
+	               
+	            </div>
+	        </div>
+	   	 </div>
+	</div>
+      
+    </section>
+
+
+    <section id="primi">
+		<div class="container blu1 p-1" style="border-radius: 15px;">
+		<div class="container my-3 d-flex align-items-center justify-content-center">
+      	  <h2 class="display-4 coluno text-center  "  style="border-radius: 20px; width: 35%; border-style: double; border-color: white;">PRIMI </h2>
+      </div>
+      <div class="container text-center my-1 ">
+        <div class="row justify-content-center">
+            <div  class="col-lg-2 col-md-3 mb-2" th:each="ricetta, iterStat : ${ricette}" th:if="${ricetta.portata} == 'primo'">
+                
+                    <div class="card coluno" style="border-radius: 20px;border-color: #b5e8e9; border-style: double;">
+                        <span><img width="75%" th:src=${ricetta.copertina} class="mt-3" style="border-radius: 20px;height: 70%;"/></span>
+                        <div class="card-body"style="height: 100px;">
+                            <h6 class="card-title carta-testo" th:text="${ricetta.nome}"></h6>
+                            <a th:href="@{'/ricetta' + '/' + ${ricetta.id}}">Dettagli</a>
+                        </div>
+                    </div>
+                
+                <!-- Chiusura e apertura di una nuova riga ogni 4 elementi -->
+                <div th:if="${iterStat.index % 4 == 3}" class="w-100"></div>
+            </div>
+        </div>
+   	 </div>
+		</div>
+      
+    </section>
+      
+    <section id="secondi">
+	  <div class="container blu1 p-1" style="border-radius: 15px;">
+		  <div class="container my-3 d-flex align-items-center justify-content-center">
+      	  <h2 class="display-4 coluno text-center  "  style="border-radius: 20px; width: 35%; border-style: double; border-color: white;">SECONDI </h2>
+      </div>
+       <div class="container text-center my-2 ">
+        <div class="row justify-content-center">
+            <div  class="col-lg-2 col-md-3 mb-1" th:each="ricetta, iterStat : ${ricette}" th:if="${ricetta.portata} == 'secondo'">
+                
+                    <div class="card coluno" style="border-radius: 20px;border-color: #b5e8e9; border-style: double;">
+                        <span><img width="75%" th:src=${ricetta.copertina} class="mt-3" style="border-radius: 20px;height: 70%;"/></span>
+                        <div class="card-body"style="height: 100px;">
+                            <h6 class="card-title carta-testo" th:text="${ricetta.nome}"></h6>
+                            <a th:href="@{'/ricetta' + '/' + ${ricetta.id}}">Dettagli</a>
+                        </div>
+                    </div>
+                
+                <!-- Chiusura e apertura di una nuova riga ogni 4 elementi -->
+                <div th:if="${iterStat.index % 4 == 3}" class="w-100"></div>
+            </div>
+        </div>
+   	 </div>
+	  </div>
+       
+    </section>
+
+    <section id="dolci">
+		<div class="container blu1 p-1" style="border-radius: 15px;">
+			<div class="container my-3 d-flex align-items-center justify-content-center">
+      	  <h2 class="display-4 coluno text-center  "  style="border-radius: 20px; width: 35%; border-style: double; border-color: white;">DOLCI </h2>
+      </div>
+      <div class="container text-center my-2 ">
+        <div class="row justify-content-center">
+            <div  class="col-lg-2 col-md-3 mb-1" th:each="ricetta, iterStat : ${ricette}" th:if="${ricetta.portata} == 'dolce'">
+                
+                    <div class="card coluno" style="border-radius: 20px;border-color: blue; border-style: double;">
+                        <div class="card-body">
+                            <h5 class="card-title carta-testo" th:text="${ricetta.nome}"></h5>
+                           
+                            <a th:href="@{'/ricetta' + '/' + ${ricetta.id}}">Dettagli</a>
+                        </div>
+                    </div>
+                
+                <!-- Chiusura e apertura di una nuova riga ogni 4 elementi -->
+                <div th:if="${iterStat.index % 4 == 3}" class="w-100"></div>
+            </div>
+        </div>
+   	 </div>
+		</div>
+       
+    </section>
+    
+    	
+		
+
+
+  
+	
+  <div class="container text-center " >
+    <div class="row justify-content-center mb-3" style="gap: 10px;">
+      <div class="col-4 p-2 my-1 colquattro" style="border-radius: 15px;">
+        <h1 class="diplay-6 my-4">Flog</h1>
+        <a class="btn  btn-outline-primary bi bi-person-circle ms-1"  href="/login"> Login</a>
+        <a class="btn  btn-outline-secondary bi bi-plus-circle-fill ms-1"  href="/registration"> Registrati</a>
+
+      </div>
+      <div class="col-7 text-center p-2 my-1 colquattro" style="border-radius: 15px;">
+        <h5>Chi siamo ?</h5>
+        <p class="small">Siamo un team che ha creato questo blog per rendere meno noisosi le i vostri pranzi e le vostre cene, questo sito web è stato progettato da Niccolo Corraro per il Corso di Sistemi Informativi su Web.</p>
+      	
+      	<div class="d-flex align-items-center justify-content-center" > 
+		    <h6 class="">Seguici :</h6>
+		    <a class="bi bi-instagram mx-2" href="https://www.instagram.com/nicc.cor/" ></a>
+		    <a class="bi bi-facebook mx-2" href="https://www.facebook.com/universitaroma3/?locale=it_IT" ></a>
+		    <a class="bi bi-tiktok" href="https://www.tiktok.com/@nicc.cor" ></a>
+		</div>
+
+
+      </div>
+      
+    </div>
+
+  </div>
+   
+</body>
+
+
+</html>
