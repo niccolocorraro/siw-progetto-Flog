@@ -2,30 +2,116 @@
 <html>
 
 <head>
-	<title>Ricetta</title>
-	<link rel="stylesheet" href="/css/stile.css" />
-</head>
+	<title>Ricette</title>
+
+	<link rel="stylesheet" href="css/stile.css" />
+	<link rel="stylesheet" href="css/bootstrapcss/bootstrap.min.css" />
+	<link rel="stylesheet" href="\css\icon\bootstrap-icons-1.11.3\font\bootstrap-icons.min.css" />
+	<script defer src="js/bootstrap.bundle.min.js"></script>
+  </head>
 
 <body>
-	<header>
-		<div th:if="${userDetails}">
-			<span th:text="${userDetails.username}"></span>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${user}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
 
-	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
-	<h1>Ricette che soddisfano i requisiti</h1>
-	<div th:if="${ricette.isEmpty()}">Non ci sono ricette che soddisfano i requisiti</div>
-	<ul th:if="${!ricette.isEmpty()}">
-		<li th:each="ricetta : ${ricette}">
-			<a href="ricetta.html" th:href="@{'/ricetta' + '/' + ${ricetta.id}}"
-				th:text="${ricetta.nome} + ' (' + ${ricetta.year}+')'">Up! (2000)</a>
-		</li>
-	</ul>
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary blu1">
+    <div class="container blu1" style="border-radius: 20px;height: 55px;">
+      <a class="navbar-brand " >FLOG</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active bi bi-house" aria-current="page" href="/"></a>
+          </li>
+        </ul>
+        <form class="d-flex" role="search" action="/foundRicette" method="GET">
+          <input class="form-control me-2 " name="nome" style="text-decoration: white;" type="search" placeholder="Search" aria-label="Search">
+          
+
+          <button class="btn btn-outline-success" type="submit" >Search</button>
+        </form>
+        <a class="btn bi bi-person-circle ms-1" style="background-color: white;" href="/login"></a>
+      </div>
+    </div>
+  </nav>
+  
+  
+
+     <div class="container-lg my-1 gia1 text-center" style="border-radius: 15px;">
+      <div class="row  text-center  align-items-center justify-content-center">
+
+        <div class="col p-1  text-center " >
+          <img class="img-fluid img-thumbnail " src="/images/nostreRicette.jpg" style="width: 200px; height: auto">
+          
+        </div>
+        <div class="col-6 p-5  text-center p-3">
+
+          <h1 class="display-3">Le Nostre Ricette</h1>
+          <p class="display-6">l'arte di cucinare</p>
+
+        </div>
+         <div class="col p-1  text-center " >
+          <img class="img-fluid img-thumbnail " src="/images/nostreRicette.jpg" style="width: 200px; height: auto">
+          
+        </div>
+        </div>
+      </div>
+
+    </div>
+     
+
+  	<div class="container text-center blu2 p-3" style="border-radius: 15px;">
+		   <div class="row justify-content-center">
+		    <div th:if="${ricette==null || ricette.isEmpty()}" style="color: white;">
+				<h3>Non ci sono Ricette Con questo nome</h3> 
+			</div>
+            <div class="col-lg-3 col-md-4 mb-3" th:each="ricetta : ${ricette}">
+               
+
+                <div class="card coluno" style="border-radius: 20px;border-color: #b5e8e9; border-style: double;">
+                        <span><img width="75%" th:src=${ricetta.copertina} class="mt-3" style="border-radius: 20px;height: 70%;"/></span>
+                        <div class="card-body"style="height: 100px;">
+                            <h6 class="card-title carta-testo" th:text="${ricetta.nome}"></h6>
+                            <a th:href="@{'/ricetta' + '/' + ${ricetta.id}}">Dettagli</a>
+                        </div>
+                    </div>
+            </div>
+        </div>
+	</div>
+    	
+		
+
+
+  
+	
+  <div class="container text-center " >
+    <div class="row justify-content-center mb-3" style="gap: 10px;">
+      <div class="col-4 p-2 my-1 colquattro" style="border-radius: 15px;">
+        <h1 class="diplay-6 my-4">Flog</h1>
+        <a class="btn  btn-outline-primary bi bi-person-circle ms-1"  href="/login"> Login</a>
+        <a class="btn  btn-outline-secondary bi bi-plus-circle-fill ms-1"  href="/registration"> Registrati</a>
+
+      </div>
+      <div class="col-7 text-center p-2 my-1 colquattro" style="border-radius: 15px;">
+        <h5>Chi siamo ?</h5>
+        <p class="small">Siamo un team che ha creato questo blog per rendere meno noisosi le i vostri pranzi e le vostre cene, questo sito web è stato progettato da Niccolo Corraro per il Corso di Sistemi Informativi su Web.</p>
+      	
+      	<div class="d-flex align-items-center justify-content-center" > 
+		    <h6 class="">Seguici :</h6>
+		    <a class="bi bi-instagram mx-2" href="https://www.instagram.com/nicc.cor/" ></a>
+		    <a class="bi bi-facebook mx-2" href="https://www.facebook.com/universitaroma3/?locale=it_IT" ></a>
+		    <a class="bi bi-tiktok" href="https://www.tiktok.com/@nicc.cor" ></a>
+		</div>
+
+
+      </div>
+      
+    </div>
+
+  </div>
+   
 </body>
+
 
 </html>

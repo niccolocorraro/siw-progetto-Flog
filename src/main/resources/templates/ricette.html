@@ -25,8 +25,10 @@
             <a class="nav-link active bi bi-house" aria-current="page" href="/"></a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2 " style="text-decoration: white;" type="search" placeholder="Search" aria-label="Search">
+        <form class="d-flex" role="search" action="/foundRicette" method="GET">
+          <input class="form-control me-2 " name="nome" style="text-decoration: white;" type="search" placeholder="Search" aria-label="Search">
+          
+
           <button class="btn btn-outline-success" type="submit" >Search</button>
         </form>
         <a class="btn bi bi-person-circle ms-1" style="background-color: white;" href="/login"></a>
@@ -83,11 +85,7 @@
     
     <section id="delgiorno">
 		<div class="container coldue p-1" style="border-radius: 15px;">
-		
-		
-      
-		      
-	      
+
 	      <div class="container text-center my-1 ">
 	        <div class="row justify-content-center d-flex justify-content-center ">
 				

@@ -21,9 +21,6 @@ public class Credentials {
 	private String password;
 	private String role;
 
-	public Credentials() {
-		role = DEFAULT_ROLE;
-	}
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private User user;

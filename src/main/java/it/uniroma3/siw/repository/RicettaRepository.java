@@ -16,6 +16,9 @@ public interface RicettaRepository extends CrudRepository<Ricetta, Long>{
 
 	public List<Ricetta> findAll();
 	
+    List<Ricetta> findByNome(String nome);
+
+	
 
 }
  

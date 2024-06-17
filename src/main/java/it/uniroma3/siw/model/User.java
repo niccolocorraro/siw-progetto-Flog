@@ -20,7 +20,7 @@ public class User {
 	private String surname;
 	@NotBlank
 	private String email;
-	private String password;
+	//private String password;
 
     public Long getId() {
 		return id;
@@ -89,12 +89,12 @@ public class User {
 			return false;
 		return true;
 	}
-
+/*
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
+	}*/
 }

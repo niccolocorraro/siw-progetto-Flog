@@ -1,5 +1,7 @@
 package it.uniroma3.siw.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,8 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.model.Cuoco;
+import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.repository.CuocoRepository;
 
 @Controller
@@ -50,5 +54,12 @@ public class CuocoController {
 	public String getCuochi(Model model) {
 		model.addAttribute("cuochi", this.cuocoRepository.findAll());
 		return "cuochi.html";
-	}
+	} 
+	
+	@GetMapping("/foundCuochi")
+    public String searchCuochi(@RequestParam("name") String name, Model model) {
+        List<Cuoco> cuochi = cuocoRepository.findByName(name);
+        model.addAttribute("cuochi", cuochi);
+        return "foundCuochi.html";
+    }
 }

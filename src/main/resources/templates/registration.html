@@ -47,27 +47,28 @@
             <h4 class="display-4 ">
                 REGISTRATI
             </h4>
-            <form >
+            <form th:action="@{/registration}" method="POST">
                     <div class="mb-3">
                       <div class="input-group" style="width: 100%;">
                         
                         <div class="row">
                           <div class="col">
-                            <input type="text" class="form-control"placeholder="Nome" style="border-width: 1px; border-color: black;" aria-label="First name">
+			<span><input type="text" placeholder="name" required th:field="${user.name}" /></span>
                           </div>
                           <div class="col">
-                            <input type="text" class="form-control" placeholder="Cognome" style="border-width: 1px; border-color: black;" aria-label="Last name">
+			<span><input type="text" placeholder="surname" required th:field="${user.surname}" /></span>
                           </div>
                         </div>
                       </div>
                       
                       <div class="input-group my-4">
-                        <input type="text" class="form-control" placeholder="Email" aria-label="Email"  style="border-width: 1px; border-color: black;" aria-describedby="basic-addon1">
-                      <div id="emailHelp" class="form-text"></div>
+<span>
+				<input type="text" placeholder="username" required th:field="${credentials.username}" />
+			</span>                      <div id="emailHelp" class="form-text"></div>
                       </div>
 
                       <div class="input-group my-4 " style="width: 70%;">
-                        <input type="password" class="form-control" placeholder="Password" style="border-width: 1px; border-color: black;" id="exampleInputPassword1">
+			<span><input type="password" placeholder="password" required th:field="${credentials.password}" />
 
                       </div>
                       

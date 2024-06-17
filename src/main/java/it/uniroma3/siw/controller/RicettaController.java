@@ -111,7 +111,7 @@ public class RicettaController {
 	
 	
 	
-	
+	/*
 	
 	@GetMapping("/formSearchRicette")
 	public String formSearchRicette() {
@@ -123,6 +123,13 @@ public class RicettaController {
 		model.addAttribute("ricette", this.ricettaRepository.findByCuoco( cuocoRepository.findByName(nomeCuoco)) );
 		return "foundRicette.html";
 	}
+	*/
+	@GetMapping("/foundRicette")
+    public String searchRicette(@RequestParam("nome") String nome, Model model) {
+        List<Ricetta> ricette = ricettaRepository.findByNome(nome);
+        model.addAttribute("ricette", ricette);
+        return "foundRicette.html";
+    }
 	
 	
 	
