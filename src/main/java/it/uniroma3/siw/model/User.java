@@ -18,9 +18,7 @@ public class User {
 	private String name;
 	@NotBlank
 	private String surname;
-	@NotBlank
-	private String email;
-	//private String password;
+	
 
     public Long getId() {
 		return id;
@@ -45,13 +43,7 @@ public class User {
 		this.surname = surname;
 	}
 	
-	public String getEmail() {
-		return email;
-	}
 	
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	@Override
 	public int hashCode() {
@@ -59,7 +51,6 @@ public class User {
 		int result = 1;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		return result;
 	}
 
@@ -81,11 +72,6 @@ public class User {
 			if (other.surname != null)
 				return false;
 		} else if (!surname.equals(other.surname))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
 			return false;
 		return true;
 	}

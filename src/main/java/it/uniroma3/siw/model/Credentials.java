@@ -17,7 +17,7 @@ public class Credentials {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-	private String username;
+	private String email;
 	private String password;
 	private String role;
 
@@ -25,8 +25,8 @@ public class Credentials {
 	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
 	
-	public String getUsername() {
-		return username;
+	public String getEmail() {
+		return email;
 	}
 	
 	public Long getId() {
@@ -45,8 +45,8 @@ public class Credentials {
 		this.user = user;
 	}
 	
-	public void setUsername(String username) {
-		this.username = username;
+	public void setEmail(String username) {
+		this.email = username;
 	}
 	
 	public String getPassword() {

@@ -47,5 +47,4 @@ insert into cuoco (id, name, surname,date_of_birth,url_of_picture) values(nextva
 insert into cuoco (id, name, surname,date_of_birth,url_of_picture) values(nextval('cuo_seq'), 'Francoise', 'Fontanaise','1935-06-20','/images/cuoco2.jpg');
 
 
-INSERT INTO users (id,name) values (1,'admin');
-INSERT INTO credentials (id,username, password, role, user_id) VALUES (1,'admin@example.com', 'admin', 'ADMIN', 1);
+
