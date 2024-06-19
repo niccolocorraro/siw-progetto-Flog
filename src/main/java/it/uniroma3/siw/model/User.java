@@ -20,6 +20,12 @@ public class User {
 	private String surname;
 	@NotBlank
 	private String email;
+	
+	private String bio;
+	
+	private String date;
+	
+	
 
     public Long getId() {
 		return id;

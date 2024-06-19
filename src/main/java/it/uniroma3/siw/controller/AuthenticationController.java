@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.CredentialsRepository;
-import it.uniroma3.siw.service.AdminService;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.UserService;
 import jakarta.validation.Valid;
@@ -31,8 +30,6 @@ public class AuthenticationController {
 	@Autowired
 	private CredentialsRepository credentialsRepository;
 
-	@Autowired
-	private AdminService adminService;
 	
     @Autowired
 	private UserService userService;

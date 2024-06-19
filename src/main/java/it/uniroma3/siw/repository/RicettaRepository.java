@@ -18,6 +18,10 @@ public interface RicettaRepository extends CrudRepository<Ricetta, Long>{
 	
     List<Ricetta> findByNome(String nome);
 
+  //@Query("SELECT g FROM Ricetta g WHERE LOWER (g.nome) LIKE LOWER (CONCAT ('%', : nome , '%'))")
+  	public List<Ricetta> searchRicetteByNomeContainingIgnoreCase(String nome);
+  	
+  	  
 	
 
 }

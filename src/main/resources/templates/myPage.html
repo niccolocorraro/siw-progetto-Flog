@@ -42,7 +42,12 @@
         
         <div class="col-lg-6 col-md-5 p-3  justify-content-center ">
 
-          <h2 class="display-4"  > Il Mio Profilo</h2>
+          <h2 class="display-4"  >
+			 
+              <td th:text="${user.name}">Name</td> 
+              <td th:text="${user.surname}">Name</td> 
+
+          </h2>
       
         </div>
             
@@ -96,7 +101,7 @@
       <div class="col-4 p-2 my-1 colquattro" style="border-radius: 15px;">
         <h1 class="diplay-6 my-4">Flog</h1>
         <a class="btn  btn-outline-primary bi bi-person-circle ms-1"  href="/login"> Login</a>
-        <a class="btn  btn-outline-secondary bi bi-plus-circle-fill ms-1"  href="/registration"> Registrati</a>
+        <a class="btn  btn-outline-secondary bi bi-plus-circle-fill ms-1"  href="/register"> Registrati</a>
 
       </div>
       <div class="col-7 text-center p-2 my-1 colquattro" style="border-radius: 15px;">

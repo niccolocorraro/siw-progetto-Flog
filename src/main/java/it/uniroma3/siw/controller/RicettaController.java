@@ -40,21 +40,7 @@ public class RicettaController {
 		return "admin/formNewRicetta.html";
 	}
 	
-	/*
-	 @GetMapping("/new")
-	    public String showRecipeForm(Model model) {
-	        Recipe recipe = new Recipe();
-	        recipe.setIngredients(new ArrayList<>()); // Inizializza la lista degli ingredienti
-	        model.addAttribute("recipe", recipe);
-	        return "recipeForm";
-	    }
-
-	    @PostMapping("/save")
-	    public String saveRecipe(@ModelAttribute Recipe recipe) {
-	        recipeService.saveRecipe(recipe);
-	        return "redirect:/recipe/list";
-	    }
-*/
+	
 
 	@GetMapping(value="/admin/formUpdateRicetta/{id}")
 	public String formUpdateRicetta(@PathVariable("id") Long id, Model model) {
@@ -111,25 +97,15 @@ public class RicettaController {
 	
 	
 	
-	/*
 	
-	@GetMapping("/formSearchRicette")
-	public String formSearchRicette() {
-		return "formSearchRicette.html";
-	}
-
-	@PostMapping("/searchRicette")
-	public String searchRicette(Model model, @RequestParam String nomeCuoco) {
-		model.addAttribute("ricette", this.ricettaRepository.findByCuoco( cuocoRepository.findByName(nomeCuoco)) );
-		return "foundRicette.html";
-	}
-	*/
 	@GetMapping("/foundRicette")
     public String searchRicette(@RequestParam("nome") String nome, Model model) {
-        List<Ricetta> ricette = ricettaRepository.findByNome(nome);
+        List<Ricetta> ricette = ricettaRepository.searchRicetteByNomeContainingIgnoreCase(nome);
         model.addAttribute("ricette", ricette);
         return "foundRicette.html";
-    }
+    } 
+	
+	
 	
 	
 	

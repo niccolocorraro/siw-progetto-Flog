@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.model.Cuoco;
-import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.repository.CuocoRepository;
 
 @Controller
@@ -58,8 +57,10 @@ public class CuocoController {
 	
 	@GetMapping("/foundCuochi")
     public String searchCuochi(@RequestParam("name") String name, Model model) {
-        List<Cuoco> cuochi = cuocoRepository.findByName(name);
+        List<Cuoco> cuochi = cuocoRepository.searchCuochiByNameContainingIgnoreCase(name);
         model.addAttribute("cuochi", cuochi);
         return "foundCuochi.html";
     }
+
+	
 }
