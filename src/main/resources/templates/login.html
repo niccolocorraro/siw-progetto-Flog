@@ -40,23 +40,22 @@
             <h4 class="display-4 justify-content-center" >
                 LOGIN
             </h4>
-            <form style="width: 100%;"th:action="@{/login}" method="POST">
-                    <div class="mb-3">
-						
-                      <label for="exampleInputEmail1" class="form-label" >Email address</label>
-                      <input type="email" class="form-control" id="email" name="email" style="border-width: 1px; border-color: black;"  aria-describedby="emailHelp">
-                      <div id="emailHelp" class="form-text"></div>
-                    </div>
-                    <div class="mb-4">
-                      <label for="exampleInputPassword1" class="form-label">Password</label>
-                      <input type="password" class="form-control" style="border-width: 1px; border-color: black;" id="exampleInputPassword1">
-                    </div>
-            
-                 
-                    
-    
-                    <button type="submit" class="btn" style="background-color: #9fc8d9;border-width: 1px; border-color: black;">Submit</button>
-                  </form>
+            <form th:action="@{/login}" method="POST">
+			<div>
+				<span>Username:</span>
+				<span><input name="username" type="text" required /></span>
+			</div>
+			<div>
+				<span>Password:</span>
+				<span><input name="password" type="password" required /></span>
+			</div>
+			<div>
+				<span th:if="${param.error != null}">Username o password errati</span>
+			</div>
+			<div>
+				<span><button type="submit">Login</button></span>
+			</div>
+	</form>
 
         </div>
             
@@ -79,7 +78,7 @@
 	            <h6 class="display-4 justify-content-center" >
 	                Registrati ora!
 	            </h6>
-	            <a href="/registration" class="btn my-2" style="background-color: #9fc8d9;border-width: 1px; border-color: black;">Registrati</a>
+	            <a href="/register" class="btn my-2" style="background-color: #9fc8d9;border-width: 1px; border-color: black;">Registrati</a>
 			</div>
         </div>
             
@@ -94,7 +93,7 @@
       <div class="col-4 p-2 my-1 colquattro" style="border-radius: 15px;">
         <h1 class="diplay-6 my-4">Flog</h1>
         <a class="btn  btn-outline-primary bi bi-person-circle ms-1"  href="/login"> Login</a>
-        <a class="btn  btn-outline-secondary bi bi-plus-circle-fill ms-1"  href="/registration"> Registrati</a>
+        <a class="btn  btn-outline-secondary bi bi-plus-circle-fill ms-1"  href="/register"> Registrati</a>
 
       </div>
       <div class="col-7 text-center p-2 my-1 colquattro" style="border-radius: 15px;">
