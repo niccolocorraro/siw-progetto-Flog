@@ -1,5 +1,7 @@
 package it.uniroma3.siw.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.repository.CredentialsRepository;
+import it.uniroma3.siw.service.AdminService;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.UserService;
 import jakarta.validation.Valid;
@@ -24,9 +28,34 @@ public class AuthenticationController {
 	@Autowired
 	private CredentialsService credentialsService;
 
+	@Autowired
+	private CredentialsRepository credentialsRepository;
+
+	@Autowired
+	private AdminService adminService;
+	
     @Autowired
 	private UserService userService;
 	
+    
+    @GetMapping("/myPage")
+    public String myPage(Authentication authentication, Model model) {
+        String email = authentication.getName();
+        Optional<Credentials> c = credentialsRepository.findByUsername(email);
+        User u = c.get().getUser();
+        model.addAttribute("user", u );
+        
+        switch(c.get().getRole()) {
+        case "DEFAULT": 
+            return "myPage";
+  //      case "ADMIN":
+    //    	adminService.loadUsers(model);
+      //  	return "admin";
+        	default :
+        		return "index";
+      }
+    }
+    
 	@GetMapping(value = "/register") 
 	public String showRegisterForm (Model model) {
 		model.addAttribute("user", new User());

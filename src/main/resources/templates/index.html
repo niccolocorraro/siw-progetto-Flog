@@ -26,9 +26,15 @@
           </li>
         </ul>
         
-        <a class="btn bi bi-person-circle ms-1" style="background-color: white;" href="/login"></a>
+		        <!-- Pulsante di Login, visibile solo se l'utente non è autenticato -->
+		<a th:if="${#authorization.expression('isAnonymous()')}" th:href="@{/login}" class="btn bi bi-person-circle ms-1">Login</a>
+		
+		<!-- Pulsante di My Page, visibile solo se l'utente è autenticato -->
+		<a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/myPage}" class="btn bi bi-person-circle ms-1">My Page</a>
+
+
+
         
-        <a class="btn bi bi-person-circle ms-1" style="background-color: white;" href="/newRicetta">Newricetta</a>
 
 
       </div>
@@ -61,8 +67,8 @@
   </header>
 
   <div class="container text-center">
-  <div class="row gia1">
-    <div class="col-lg-3 col-md-3 p-2 my-1 d-flex align-items-center justify-content-center">
+  <div class="row gia1 bordo">
+    <div class="col-lg-3 col-md-3 p-2 my-1 d-flex align-items-center justify-content-center ">
       <p class="small">"Non riesco a sopportare quelli <br>che non prendono seriamente<br> il cibo." (Oscar Wilde)</p>
     </div>
     <div class="col-lg-3 col-md-3p-2 my-1 d-flex align-items-center justify-content-center">
@@ -80,13 +86,13 @@
 
   <div class="container text-center  ">
     <div class="row  ">
-      <div class="col-6 p-2 my-1 coluno">
+      <div class="col-6 p-2 my-1 coluno bordaturaS">
          <img class="img-fluid img-thumbnail " src="images/cucina2.jpg" style="width: 700px; height: auto">
       </div>
       <div class="col-3 p-2 my-1 coldue d-flex align-items-center justify-content-center">
         <p class="display-6  ">(Food-bLOG)</p>
       </div>
-      <div class="col-3 p-2 my-1 coluno d-flex align-items-center justify-content-center">
+      <div class="col-3 p-2 my-1 coluno d-flex align-items-center justify-content-center bordaturaD">
         <p class="small">'cibo.cibo.cibo.cibo.cibo.cibo.cibo.cibo.cibo.<br>
           cibo.cibo.cibo.cibo.cibo.cibo.cibo.cibo.cibo.<br>
           cibo.cibo.cibo.cibo.cibo.cibo.cibo.cibo.cibo.'<br></p>
@@ -102,7 +108,7 @@
 
   <div class="container text-center ">
     <div class="row" >
-      <div class="col-7  mb-1 blu1 text-center p-5">
+      <div class="col-7  mb-1 blu1 text-center p-5 bordaturaS">
 
         <h2>Le Nostre ricette</h2>
         <p>Qui, puoi immergerti in un universo ricco di migliaia di ricette, pronte a soddisfare ogni tua voglia culinaria, indipendentemente dalla tua esperienza in cucina. 
@@ -114,14 +120,14 @@
         </a>
 
       </div>
-      <div class="col-5 p-2 mb-1 d-none d-md-block colquattro">
+      <div class="col-5 p-2 mb-1 d-none d-md-block colquattro bordaturaD">
         <img class="img-fluid img-thumbnail" src="images/OIG1.jpeg" style="width: 600px; height: auto;">
       </div>
-      <div class="col-5 p-2 mb-1 colquattro">
+      <div class="col-5 p-2 mb-1 colquattro bordaturaS">
         <img class="img-fluid img-thumbnail " src="images/OIG3.jpeg" style="width: 600px; height: auto">
 
       </div>
-      <div class="col-7  mb-1 blu1 text-center p-5">
+      <div class="col-7  mb-1 blu1 text-center p-5 bordaturaD" >
         <h2>I Nostri Cuochi</h2>
         <p>Da giovani chef emergenti che stanno facendo le loro prime esperienze in rinomati ristoranti, a maestri culinari con decenni di esperienza e premi internazionali vinti,
 			 la nostra lista di cuochi offre una varietà impressionante di talenti culinari.Attraverso le loro ricette, avrete l'opportunità di viaggiare con noi in un tour 

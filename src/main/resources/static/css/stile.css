@@ -111,3 +111,12 @@ section{
 	border-radius: 15px;
 }
 
+.bordaturaD{
+	border-top-right-radius: 15px;
+	border-bottom-right-radius: 15px;
+	}
+
+.bordaturaS{
+	border-top-left-radius: 15px;
+	border-bottom-left-radius: 15px;
+	}
