@@ -69,18 +69,26 @@
 		
 		</div>
 		
-			<!--Username-->
-		<div class="input-group flex-nowrap mt-2">
-			
-			
-			<span class="input-group-text" id="addon-wrapping">@</span>
-			<input type="text" class="form-control" placeholder="username" aria-label="Username" aria-describedby="addon-wrapping" required th:field="${credentials.username}" />
-			
-			<span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"
-				th:style="'color:red'">
-			</span>
-			
-			
+		<div class="mt-2">
+			<div class="row ">
+		<!--Username-->
+			  <div class="col">
+				  <div class="input-group flex-nowrap ">
+		
+					<span class="input-group-text" id="addon-wrapping">@</span>
+					<input type="text" class="form-control" placeholder="username" aria-label="Username" aria-describedby="addon-wrapping" required th:field="${credentials.username}" />
+					
+					<span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"
+						th:style="'color:red'">
+					</span>			
+				</div>
+			  </div>
+	     <!--date-->
+			  <div class="col">
+			    <input type="text" class="form-control" id="colFormLabel" placeholder="Data di nascita" required th:field="${user.date}" />
+			  </div>
+			</div>
+	
 		</div>
 		
 		<!--Email-->
@@ -109,7 +117,6 @@
 		</div>
 		
 		
-		
 		<!--Foto-->
 		<div class="input-group mt-2">
 		  <input type="file" class="form-control" id="inputGroupFile02">
@@ -119,8 +126,11 @@
 		<!--Descrizione-->
 		<div class="input-group mt-2">
 		  <span class="input-group-text">Biografia</span>
-		  <textarea class="form-control" aria-label="With textarea"></textarea>
+		  <textarea class="form-control" aria-label="With textarea" th:field="${user.bio}"></textarea>
 		</div>
+		
+		
+		
 		
 	
 		<div>

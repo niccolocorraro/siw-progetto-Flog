@@ -19,5 +19,10 @@ public class CuocoService {
 	
 	public Iterable<Cuoco> findAll() {
 		return cuocoRepository.findAll();
+		
 	}
+	
+	 public void saveCuoco(Cuoco cuoco) {
+	        cuocoRepository.save(cuoco);
+	    }
 }

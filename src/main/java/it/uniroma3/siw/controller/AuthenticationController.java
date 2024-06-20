@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.CredentialsRepository;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.CuocoService;
 import it.uniroma3.siw.service.UserService;
 import jakarta.validation.Valid;
 
@@ -34,6 +36,8 @@ public class AuthenticationController {
     @Autowired
 	private UserService userService;
 	
+    @Autowired
+    private CuocoService cuocoService;
     
     @GetMapping("/myPage")
     public String myPage(Authentication authentication, Model model) {
@@ -101,7 +105,17 @@ public class AuthenticationController {
 
 		// se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
         if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
-            userService.saveUser(user);
+        	Cuoco cuoco = new Cuoco();
+            cuoco.setName(user.getName());
+            cuoco.setSurname(user.getSurname());
+            cuoco.setBiografia(user.getBio());
+            cuoco.setDateOfBirth(user.getDate());
+            // Imposta altri campi di Cuoco se necessario
+
+            cuocoService.saveCuoco(cuoco);
+
+             user.setCuoco(cuoco);
+        	userService.saveUser(user);
             credentials.setUser(user);
             credentialsService.saveCredentials(credentials);
             model.addAttribute("user", user);

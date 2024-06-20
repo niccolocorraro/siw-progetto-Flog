@@ -51,9 +51,8 @@ import static it.uniroma3.siw.model.Credentials.ADMIN_ROLE;
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(authorizeRequests ->
            authorizeRequests
-//                .requestMatchers("/**").permitAll()
                 // chiunque (autenticato o no) può accedere alle pagine index, login, register, ai css e alle immagini
-                .requestMatchers(HttpMethod.GET,"/","/index","/register","/myPage","/css/**", "/images/**", "favicon.ico").permitAll()
+                .requestMatchers(HttpMethod.GET,"/","/index","/register","/myPage","/cuochi","ricette","/ricetta/{id}","/cuoco/{id}","/css/**", "/images/**", "favicon.ico").permitAll()
         		// chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
                 .requestMatchers(HttpMethod.POST,"/register", "/login").permitAll()
                 .requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority(ADMIN_ROLE)

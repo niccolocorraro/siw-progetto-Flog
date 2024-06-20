@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -25,7 +26,10 @@ public class User {
 	
 	private String date;
 	
+    private String foto;
 	
+	@OneToOne 
+    private Cuoco cuoco;
 
     public Long getId() {
 		return id;
@@ -93,5 +97,37 @@ public class User {
 		} else if (!email.equals(other.email))
 			return false;
 		return true;
+	}
+
+	public String getBio() {
+		return bio;
+	}
+
+	public void setBio(String bio) {
+		this.bio = bio;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public Cuoco getCuoco() {
+		return cuoco;
+	}
+
+	public void setCuoco(Cuoco cuoco) {
+		this.cuoco = cuoco;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 }

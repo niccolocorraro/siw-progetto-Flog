@@ -1,10 +1,7 @@
 package it.uniroma3.siw.model;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,8 +18,7 @@ public class Cuoco {
 	private String name;
 	private String surname;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate dateOfBirth;
+	private String dateOfBirth;
 	
 	private String urlOfPicture;
 
@@ -60,11 +56,11 @@ public class Cuoco {
 		this.surname = surname;
 	}
 
-	public LocalDate getDateOfBirth() {
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(LocalDate dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
