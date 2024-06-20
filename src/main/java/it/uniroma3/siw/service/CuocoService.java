@@ -25,4 +25,5 @@ public class CuocoService {
 	 public void saveCuoco(Cuoco cuoco) {
 	        cuocoRepository.save(cuoco);
 	    }
+	 
 }

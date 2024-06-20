@@ -1,9 +1,17 @@
 package it.uniroma3.siw.controller;
 
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,9 +20,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.controller.validator.RicettaValidator;
+import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.model.Ricetta;
+import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.repository.CredentialsRepository;
 import it.uniroma3.siw.repository.CuocoRepository;
 import it.uniroma3.siw.repository.RicettaRepository;
 import it.uniroma3.siw.service.RicettaService;
@@ -33,6 +46,13 @@ public class RicettaController {
 
 	@Autowired
 	private RicettaService ricettaService;
+	
+	@Autowired
+	private CredentialsRepository credentialsRepository;
+
+	  // Directory where profile images will be saved
+    private static String UPLOADED_FOLDER = "src/main/resources/static/images/piatti/";
+
 	
 	@GetMapping(value="/admin/formNewRicetta")
 	public String formNewRicetta(Model model) {
@@ -107,10 +127,45 @@ public class RicettaController {
 	 //temporaneo
     @GetMapping("/newRicetta")
 	public String newRicetta(Model model) {
+    	model.addAttribute("ricetta",new Ricetta());
 		return "newRicetta.html";
 	
 	}
     
+    @PostMapping("/newRicetta")
+    public String newRicetta(@Valid @ModelAttribute("ricetta") Ricetta ricetta, BindingResult bindingResult, 
+                                     Model model, @AuthenticationPrincipal UserDetails userDetails,Authentication authentication,@RequestParam("file") MultipartFile file){
+
+    	 if (!file.isEmpty()) {
+             try {
+                 byte[] bytes = file.getBytes();
+                 Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+                 Files.write(path, bytes);
+                 ricetta.setFoto("/images/piatti/" + file.getOriginalFilename() );
+             } catch (IOException e) {
+                 e.printStackTrace();
+                 model.addAttribute("message", "Failed to upload image");
+                 return "newRicetta";
+             }
+         }
+    	
+    	 String email = authentication.getName();
+         Optional<Credentials> c = credentialsRepository.findByUsername(email);
+         User u = c.get().getUser();
+
+        this.ricettaValidator.validate(ricetta, bindingResult);
+        if (!bindingResult.hasErrors()) {
+            Cuoco cuoco = u.getCuoco();
+            ricetta.setCuoco(cuoco);
+            this.ricettaRepository.save(ricetta);
+            cuoco.getRicette().add(ricetta);
+            this.cuocoRepository.save(cuoco);
+            return "redirect:/";
+        } else {
+            return "redirect:/mypage";
+        }
+    }
+     
     
     
 	

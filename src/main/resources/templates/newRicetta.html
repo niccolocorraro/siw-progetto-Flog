@@ -45,39 +45,59 @@
           <h4 class="display-6">
             Nuova RICETTA
           </h4>
-          
-          <div class="mb-2">
-            <input type="email" class="form-control" placeholder="Nome Ricetta" id="exampleFormControlInput1" >
-          </div>
-          <div class="mb-2">
-            <textarea class="form-control" placeholder="Descizione Della Ricetta" id="exampleFormControlTextarea1" rows="3"></textarea>
-          </div>
-
-		  <div class="input-group mb-2">
-			  <label class="input-group-text" for="inputGroupFile01">Upload</label>
-			  <input type="file" class="form-control" id="inputGroupFile01">
-	   	  </div>
-	   	  
-          <select class="form-select mb-2" aria-label="Default select example">
-            <option selected>Tipo di Portata</option>
-            <option value="1">Primo</option>
-            <option value="2">Secondo</option>
-            <option value="3">Dolce</option>
-          </select>
-          
-          
-
-          <div id="ingredients" class="my-2">
-            <div th:each="ingredient, iterStat : *{ingredients}">
-                <div class="input-group mb-2" th:id="'ingredient-' + ${iterStat.index}">
-                    <input type="text" th:field="*{name}" class="form-control" placeholder="Ingrediente">
-                    <input type="text" th:field="*{quantity}" class="form-control" placeholder="Quantita'">
-                    <button type="button" class="btn btn-danger" th:onclick="'removeIngredient(' + ${iterStat.index} + ')'">Rimuovi</button>
-                </div>
-            </div>
-          </div>
-         <button type="button" class="btn btn-secondary mb-3" onclick="addIngredient()">Aggiungi Ingrediente</button>
-  
+           <form th:action="@{/newRicetta}" method="post" enctype="multipart/form-data" th:object="${ricetta}">
+                        
+                        <!--nome-->
+                        <div class="form-group">
+                            <label for="nome">Nome</label>
+                            <input type="text" class="form-control" id="nome" th:field="*{nome}" required>
+                        </div>
+                        
+                        <!--descrizione-->
+                        <div class="form-group">
+                            <label for="descrizione">Descrizione</label>
+                            <textarea class="form-control" id="descrizione" th:field="*{descrizione}" rows="3" required></textarea>
+                        </div>
+                        
+                        <!--portata-->
+                        <div class="form-group">
+                            <label for="categoria">Categoria</label>
+                            <select class="form-control" id="categoria" th:field="*{portata}" required>
+                                <option value="" disabled selected>Seleziona una categoria</option>
+                                <option value="Antipasto">Antipasto</option>
+                                <option value="primo">Primo</option>
+                                <option value="secondo">Secondo</option>
+                                <option value="dolce">Dolce</option>
+                            </select>
+                        </div>
+                        
+                        <!--url_images-->
+                        <<!--Foto-->
+						<div class="input-group mt-2">
+						  <input type="file" class="form-control" id="file" name="file">
+						  <label class="input-group-text" for="inputGroupFile02" >Foto </label>
+						</div>
+				   	    
+				   	    
+				   	    <!--ingredienti->
+				   	     <div id="ingredients" class="my-2">
+				            <div th:each="ingrediente, iterStat : *{ricetta.ingredienti}">
+				                <div class="input-group mb-2" th:id="'ingrediente-' + ${iterStat.index}">
+				                    <input type="text" th:field="*{nome}" class="form-control" placeholder="Ingrediente">
+				                    <input type="text" th:field="*{num}" class="form-control" placeholder="Quantita'">
+				                    <button type="button" class="btn btn-danger" th:onclick="'removeIngrediente(' + ${iterStat.index} + ')'">Rimuovi</button>
+				                </div>
+				            </div>
+				          </div>
+				         <button type="button" class="btn btn-secondary mb-3" onclick="addIngrediente()">Aggiungi Ingrediente</button>
+				  
+-->
+                        
+                        
+                        <button type="submit" class="btn btn-primary mt-3">Crea Ricetta</button>
+                    </form>
+        
+        
         </div>
             
         <div class="col-lg-6 col-md-5 ">
@@ -117,12 +137,12 @@
 
     
 <script>
-        function addIngredient() {
+        function addIngrediente() {
             const ingredientsDiv = document.getElementById('ingredients');
             const ingredientIndex = ingredientsDiv.childElementCount - 1;
             const newIngredientDiv = document.createElement('div');
             newIngredientDiv.className = 'input-group mb-2';
-            newIngredientDiv.id = 'ingredient-' + ingredientIndex;
+            newIngredientDiv.id = 'ingrediente-' + ingredientIndex;
             newIngredientDiv.innerHTML = `
                 <input type="text" name="ingredients[${ingredientIndex}].name" class="form-control" placeholder="Ingrediente">
                 <input type="text" name="ingredients[${ingredientIndex}].quantity" class="form-control" placeholder="Quantita'">
@@ -131,8 +151,8 @@
             ingredientsDiv.appendChild(newIngredientDiv);
         }
 
-        function removeIngredient(index) {
-            const ingredientDiv = document.getElementById('ingredient-' + index);
+        function removeIngrediente(index) {
+            const ingredientDiv = document.getElementById('ingrediente-' + index);
             ingredientDiv.remove();
         }
     </script>

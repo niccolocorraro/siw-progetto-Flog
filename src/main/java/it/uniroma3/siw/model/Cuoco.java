@@ -26,7 +26,7 @@ public class Cuoco {
 
 	
 	@OneToMany(mappedBy="cuoco")
-	private List<Ricetta> ricetteCreate;
+	private List<Ricetta> ricette;
 	
 	public Cuoco(){
 	
@@ -80,17 +80,17 @@ public class Cuoco {
 		this.biografia = biografia;
 	}
 
-	public List<Ricetta> getRicetteCreate() {
-		return ricetteCreate;
+	public List<Ricetta> getRicette() {
+		return ricette;
 	}
 
-	public void setRicetteCreate(List<Ricetta> ricetteCreate) {
-		this.ricetteCreate = ricetteCreate;
+	public void setRicette(List<Ricetta> ricetteCreate) {
+		this.ricette = ricetteCreate;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dateOfBirth, ricetteCreate, id, name, surname, urlOfPicture);
+		return Objects.hash(dateOfBirth, ricette, id, name, surname, urlOfPicture);
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class Cuoco {
 		if (getClass() != obj.getClass())
 			return false;
 		Cuoco other = (Cuoco) obj;
-		return Objects.equals(dateOfBirth, other.dateOfBirth) && Objects.equals(ricetteCreate, other.ricetteCreate)
+		return Objects.equals(dateOfBirth, other.dateOfBirth) && Objects.equals(ricette, other.ricette)
 				&& Objects.equals(id, other.id) && Objects.equals(name, other.name)
 				&& Objects.equals(surname, other.surname) && Objects.equals(urlOfPicture, other.urlOfPicture);
 	}

@@ -29,8 +29,11 @@
           </li>
         </ul>
         
-        <a class="btn bi bi-person-circle ms-1" style="background-color: white;" href="/login"></a>
-
+<!-- Pulsante di Login, visibile solo se l'utente non è autenticato -->
+		<a th:if="${#authorization.expression('isAnonymous()')}" th:href="@{/login}" class="btn bi bi-person-circle ms-1">Login</a>
+		
+		<!-- Pulsante di My Page, visibile solo se l'utente è autenticato -->
+		<a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/myPage}" class="btn bi bi-person-circle ms-1">My Page</a>
       </div>
     </div>
   </nav>
@@ -50,7 +53,7 @@
         </div>
             
         <div class="col-lg-6 col-md-5 " style="justify-content: start;">
-            <span><img width="50%" th:src=${ricetta.copertina} class="my-2 img-fluid img-thumbnail" style="border-radius: 20px;"/></span>
+            <span><img width="50%" th:src=${ricetta.foto} class="my-2 img-fluid img-thumbnail" style="border-radius: 20px;"/></span>
         </div>
       
       </div>

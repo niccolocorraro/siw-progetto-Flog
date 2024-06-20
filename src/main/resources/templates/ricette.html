@@ -32,8 +32,12 @@
           <button class="btn btn-outline-success" type="submit" >Search</button>
         </form>
         
-        <a class="btn bi bi-person-circle ms-1" style="background-color: white;" href="/login"></a>
-      </div>
+<!-- Pulsante di Login, visibile solo se l'utente non è autenticato -->
+		<a th:if="${#authorization.expression('isAnonymous()')}" th:href="@{/login}" class="btn bi bi-person-circle ms-1">Login</a>
+		
+		<!-- Pulsante di My Page, visibile solo se l'utente è autenticato -->
+		<a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/myPage}" class="btn bi bi-person-circle ms-1">My Page</a>
+		      </div>
     </div>
   </nav>
   
@@ -101,7 +105,7 @@
 	                <div th:if="${randomRicette==null || randomRicette.isEmpty()}" style="color: white;">Non ci sono</div>
 	
 	                    <div class="card coluno" style="border-radius: 20px;border-color: #b5e8e9; border-style: double;">
-	                        <span><img width="75%" th:src=${ricetta.copertina} class="mt-3" style="border-radius: 20px;height: 70%;"/></span>
+	                        <span><img width="75%" th:src=${ricetta.foto} class="mt-3" style="border-radius: 20px;height: 70%;"/></span>
 	                        <div class="card-body"style="height: 100px;">
 	                            <h6 class="card-title carta-testo" th:text="${ricetta.nome}"></h6>
 	                            <a th:href="@{'/ricetta' + '/' + ${ricetta.id}}">Dettagli</a>
@@ -127,7 +131,7 @@
             <div  class="col-lg-2 col-md-3 mb-2" th:each="ricetta, iterStat : ${ricette}" th:if="${ricetta.portata} == 'primo'">
                 
                     <div class="card coluno" style="border-radius: 20px;border-color: #b5e8e9; border-style: double;">
-                        <span><img width="75%" th:src=${ricetta.copertina} class="mt-3" style="border-radius: 20px;height: 70%;"/></span>
+                        <span><img width="75%" th:src=${ricetta.foto} class="mt-3" style="border-radius: 20px;height: 70%;"/></span>
                         <div class="card-body"style="height: 100px;">
                             <h6 class="card-title carta-testo" th:text="${ricetta.nome}"></h6>
                             <a th:href="@{'/ricetta' + '/' + ${ricetta.id}}">Dettagli</a>
@@ -153,7 +157,7 @@
             <div  class="col-lg-2 col-md-3 mb-1" th:each="ricetta, iterStat : ${ricette}" th:if="${ricetta.portata} == 'secondo'">
                 
                     <div class="card coluno" style="border-radius: 20px;border-color: #b5e8e9; border-style: double;">
-                        <span><img width="75%" th:src=${ricetta.copertina} class="mt-3" style="border-radius: 20px;height: 70%;"/></span>
+                        <span><img width="75%" th:src=${ricetta.foto} class="mt-3" style="border-radius: 20px;height: 70%;"/></span>
                         <div class="card-body"style="height: 100px;">
                             <h6 class="card-title carta-testo" th:text="${ricetta.nome}"></h6>
                             <a th:href="@{'/ricetta' + '/' + ${ricetta.id}}">Dettagli</a>
@@ -178,7 +182,9 @@
         <div class="row justify-content-center">
             <div  class="col-lg-2 col-md-3 mb-1" th:each="ricetta, iterStat : ${ricette}" th:if="${ricetta.portata} == 'dolce'">
                 
-                    <div class="card coluno" style="border-radius: 20px;border-color: blue; border-style: double;">
+                    <div class="card coluno" style="border-radius: 20px;border-color: blue; border-style: double;">                                               
+						<span><img width="75%" th:src=${ricetta.foto} class="mt-3" style="border-radius: 20px;height: 70%;"/></span>
+
                         <div class="card-body">
                             <h5 class="card-title carta-testo" th:text="${ricetta.nome}"></h5>
                            

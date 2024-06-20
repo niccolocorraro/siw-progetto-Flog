@@ -24,4 +24,6 @@ public class RicettaValidator implements Validator {
 	public boolean supports(Class<?> aClass) {
 		return Ricetta.class.equals(aClass);
 	}
+	
+	
 }

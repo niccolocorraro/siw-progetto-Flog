@@ -29,8 +29,11 @@
           </li>
         </ul>
         
-        <a class="btn bi bi-person-circle ms-1" style="background-color: white;" href="/login"></a>
-
+<!-- Pulsante di Login, visibile solo se l'utente non è autenticato -->
+		<a th:if="${#authorization.expression('isAnonymous()')}" th:href="@{/login}" class="btn bi bi-person-circle ms-1">Login</a>
+		
+		<!-- Pulsante di My Page, visibile solo se l'utente è autenticato -->
+		<a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/myPage}" class="btn bi bi-person-circle ms-1">My Page</a>
       </div>
     </div>
   </nav>

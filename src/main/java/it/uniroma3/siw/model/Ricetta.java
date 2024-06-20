@@ -1,13 +1,14 @@
 package it.uniroma3.siw.model;
 
 import java.util.List;
-  import java.util.Objects;
+import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -20,16 +21,17 @@ public class Ricetta {
         private String nome; 
 		private String copertina;
 		
-		private List<String> url_images;
+		private String foto;
 		
-		private List<String> ingredienti;
-        
+		@OneToMany(mappedBy="ricetta")
+		private List<Ingrediente> ingredienti;
+		
 		private String descrizione;
         
 		@ManyToOne
         private Cuoco cuoco;
 	
-		private String portata;
+		private String portata; 
 		
 		
 		public Ricetta() {
@@ -74,13 +76,7 @@ public class Ricetta {
 		public String getDescrizione() {
 			return descrizione;
 		}
-		public List<String> getUrl_images() {
-			return url_images;
-		}
-
-		public void setUrl_images(List<String> url_images) {
-			this.url_images = url_images;
-		}
+		
 
 
 		public void setDescrizione(String descrizione) {
@@ -106,13 +102,7 @@ public class Ricetta {
 					&& Objects.equals(nome, other.nome) && Objects.equals(copertina, other.copertina);
 		}
 
-		public List<String> getIngredienti() {
-			return ingredienti;
-		}
-
-		public void setIngredienti(List<String> ingredienti) {
-			this.ingredienti = ingredienti;
-		}
+		
 
 		public String getCopertina() {
 			return copertina;
@@ -120,6 +110,22 @@ public class Ricetta {
 
 		public void setCopertina(String copertina) {
 			this.copertina = copertina;
+		}
+
+		public String getFoto() {
+			return foto;
+		}
+
+		public void setFoto(String foto) {
+			this.foto = foto;
+		}
+
+		public List<Ingrediente> getIngredienti() {
+			return ingredienti;
+		}
+
+		public void setIngredienti(List<Ingrediente> ingredienti) {
+			this.ingredienti = ingredienti;
 		}
 
 		

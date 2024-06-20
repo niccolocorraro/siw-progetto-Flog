@@ -56,11 +56,12 @@ public class AuthenticationController {
         User u = c.get().getUser();
         model.addAttribute("user", u );
         
+      
         switch(c.get().getRole()) {
         case "DEFAULT": 
             return "myPage";
   //      case "ADMIN":
-    //    	adminService.loadUsers(model);
+    //    	adminService.loadUsers(model); 
       //  	return "admin";
         	default :
         		return "index";
@@ -132,7 +133,7 @@ public class AuthenticationController {
         	Cuoco cuoco = new Cuoco();
             cuoco.setName(user.getName());
             cuoco.setSurname(user.getSurname());
-            cuoco.setBiografia(user.getBio());
+            cuoco.setBiografia(user.getBio()); 
             cuoco.setDateOfBirth(user.getDate());
             cuoco.setUrlOfPicture(user.getFoto());
             // Imposta altri campi di Cuoco se necessario

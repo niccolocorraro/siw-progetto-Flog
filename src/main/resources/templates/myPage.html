@@ -87,47 +87,74 @@
     </div>
 
 
+
+
     <div class="container text-center my-1">
         <div class="row  mt-1 blu2 " style="border-top-right-radius: 15px; border-top-left-radius: 15px;">
           <div class="col p-2  ">
   
-            <h3 class="display-5" style="text-align: start;">Ricette:</h3>
-  
+			<h4 class="display-4 d-flex justify-content-start"  >Ricette</h4>
+	        
+	        
+	      
+	        <div th:if="${user.cuoco.ricette.isEmpty()} " >Non ci sono Ricette</div>
+	
+			 <div class="row justify-content-center">
+		            <div  class="col-lg-2 col-md-3 mb-2" th:each="ricetta, iterStat : ${user.cuoco.ricette}" >
+		                
+		                    <div class="card coluno" style="border-radius: 20px;border-color: #b5e8e9; border-style: double;">
+		                        <span><img width="75%" th:src=${ricetta.foto} class="mt-3" style="border-radius: 20px;height: 70%;"/></span>
+		                        <div class="card-body"style="height: 100px;">
+		                            <h6 class="card-title carta-testo" th:text="${ricetta.nome}"></h6>
+		                            <a th:href="@{'/ricetta' + '/' + ${ricetta.id}}">Dettagli</a>
+		                        </div>
+		                    </div>
+		                
+		                <!-- Chiusura e apertura di una nuova riga ogni 4 elementi -->
+		                <div th:if="${iterStat.index % 4 == 3}" class="w-100"></div>
+		            </div>
+		        </div>
+		        
+	      
           </div>
   		  
   			
       </div>
-      <div class="row blu2 d-flex justify-content-end p-2" style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
- 			  <a class="btn btn-outline-dark ms-2 my-2" style="width: 20%;" href="/newRicetta">Aggiungi una ricetta</a>
-		  </div>
-		  
+      <div class="row blu2 d-flex justify-content-end p-2" >
+ 			  <a class="btn btn-outline-dark ms-2 my-2" style="width: 20%;" th:href="@{/newRicetta}">Aggiungi una ricetta</a>
 	  </div>
-      
+		
+	   <div class="row blu2 d-flex justify-content-end p-2" style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
+ 		
+	      
+		
+	   </div> 
+	
     
     </div>
 
 
-<div class="container text-center " >
-    <div class="row justify-content-center mb-3" style="gap: 10px;">
-      <div class="col-4 p-2 my-1 colquattro" style="border-radius: 15px;">
-        <h1 class="diplay-6 my-4">Flog</h1>
-        <a class="btn  btn-outline-primary bi bi-person-circle ms-1"  href="/login"> Login</a>
-        <a class="btn  btn-outline-secondary bi bi-plus-circle-fill ms-1"  href="/register"> Registrati</a>
-
-      </div>
-      <div class="col-7 text-center p-2 my-1 colquattro" style="border-radius: 15px;">
-        <h5>Chi siamo ?</h5>
-        <p class="small">Siamo un team che ha creato questo blog per rendere meno noisosi le i vostri pranzi e le vostre cene, questo sito web è stato progettato da Niccolo Corraro per il Corso di Sistemi Informativi su Web.</p>
-      	
-      	<div class="d-flex align-items-center justify-content-center" > 
-		    <h6 class="">Seguici :</h6>
-		    <a class="bi bi-instagram mx-2" href="https://www.instagram.com/nicc.cor/" ></a>
-		    <a class="bi bi-facebook mx-2" href="https://www.facebook.com/universitaroma3/?locale=it_IT" ></a>
-		    <a class="bi bi-tiktok" href="https://www.tiktok.com/@nicc.cor" ></a>
-		</div>
-      </div>
-    </div>
-  </div>
+	<div class="container text-center " >
+	    <div class="row justify-content-center mb-3" style="gap: 10px;">
+	      <div class="col-4 p-2 my-1 colquattro" style="border-radius: 15px;">
+	        <h1 class="diplay-6 my-4">Flog</h1>
+	        <a class="btn  btn-outline-primary bi bi-person-circle ms-1"  href="/login"> Login</a>
+	        <a class="btn  btn-outline-secondary bi bi-plus-circle-fill ms-1"  href="/register"> Registrati</a>
+	
+	      </div>
+	      <div class="col-7 text-center p-2 my-1 colquattro" style="border-radius: 15px;">
+	        <h5>Chi siamo ?</h5>
+	        <p class="small">Siamo un team che ha creato questo blog per rendere meno noisosi le i vostri pranzi e le vostre cene, questo sito web è stato progettato da Niccolo Corraro per il Corso di Sistemi Informativi su Web.</p>
+	      	
+	      	<div class="d-flex align-items-center justify-content-center" > 
+			    <h6 class="">Seguici :</h6>
+			    <a class="bi bi-instagram mx-2" href="https://www.instagram.com/nicc.cor/" ></a>
+			    <a class="bi bi-facebook mx-2" href="https://www.facebook.com/universitaroma3/?locale=it_IT" ></a>
+			    <a class="bi bi-tiktok" href="https://www.tiktok.com/@nicc.cor" ></a>
+			</div>
+	      </div>
+	    </div>
+	  </div>
 
 
 </body>
