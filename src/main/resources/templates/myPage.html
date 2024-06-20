@@ -38,21 +38,27 @@
   <header>
 
     <div class="container-lg my-2 text-center">
-      <div class="row  text-center gia1 bordo">
+      <div class="row  gia1 bordo">
         
         <div class="col-lg-6 col-md-5 p-3  justify-content-center ">
 
-          <h2 class="display-4"  >
+		  <h2 class="display-2">Il Mio Profilo:</h2>
+          <h2 class="display-2 d-flex justify-content-center"  >
 			 
               <td th:text="${user.name}">Name</td> 
               <td th:text="${user.surname}">Name</td> 
 
           </h2>
+          
+          
       
         </div>
             
+            
         <div class="col-lg-6 col-md-5 " style="justify-content: start;">
+            <span><img width="50%" th:src=${user.foto} class="my-3 img-fluid img-thumbnail" style="border-radius: 20px;"/></span>
         </div>
+       
       
       </div>
 
@@ -67,11 +73,11 @@
       <div class="row  my-1 blu3 bordo">
         <div class="col p-2 my-1 ">
 
-          <h3 class="display-5" style="text-align: start;">Biografia:</h3>
-          <p >Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque incidunt eligendi consequatur vitae quam vel molestiae quidem. Quaerat pariatur ut ipsum explicabo soluta natus numquam, expedita fugiat blanditiis qui aut!
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque incidunt eligendi consequatur vitae quam vel molestiae quidem. Quaerat pariatur ut ipsum explicabo soluta natus numquam, expedita fugiat blanditiis qui aut!
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque incidunt eligendi consequatur vitae quam vel molestiae quidem. Quaerat pariatur ut ipsum explicabo soluta natus numquam, expedita fugiat blanditiis qui aut!
-			</p>
+          <h3 class="display-5" style="text-align: start;">Info:</h3>
+          <h4 class="d-flex justify-content-start" th:text="'Data di nascita: ' +${user.date}"></h4>
+          <h4 class="d-flex justify-content-start" th:text="'Biografia: ' +${user.bio}"></h4>
+          <h4 class="d-flex justify-content-start" th:text="'Email: ' +${user.email}"></h4>
+
           
 
         </div>
@@ -82,17 +88,22 @@
 
 
     <div class="container text-center my-1">
-        <div class="row  my-1 blu2 bordo">
+        <div class="row  mt-1 blu2 " style="border-top-right-radius: 15px; border-top-left-radius: 15px;">
           <div class="col p-2  ">
   
             <h3 class="display-5" style="text-align: start;">Ricette:</h3>
-           <p class="display-6 ">lista</p>
   
           </div>
-  
-         
-  
+  		  
+  			
       </div>
+      <div class="row blu2 d-flex justify-content-end p-2" style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
+ 			  <a class="btn btn-outline-dark ms-2 my-2" style="width: 20%;" href="/newRicetta">Aggiungi una ricetta</a>
+		  </div>
+		  
+	  </div>
+      
+    
     </div>
 
 

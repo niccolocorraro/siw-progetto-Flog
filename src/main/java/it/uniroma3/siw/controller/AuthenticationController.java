@@ -1,5 +1,9 @@
 package it.uniroma3.siw.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Cuoco;
@@ -38,6 +44,10 @@ public class AuthenticationController {
 	
     @Autowired
     private CuocoService cuocoService;
+    
+    // Directory where profile images will be saved
+    private static String UPLOADED_FOLDER = "src/main/resources/static/images/cuochi/";
+
     
     @GetMapping("/myPage")
     public String myPage(Authentication authentication, Model model) {
@@ -101,7 +111,21 @@ public class AuthenticationController {
                  BindingResult userBindingResult, @Valid
                  @ModelAttribute("credentials") Credentials credentials,
                  BindingResult credentialsBindingResult,
+                 @RequestParam("file") MultipartFile file,
                  Model model) {
+		
+		 if (!file.isEmpty()) {
+             try {
+                 byte[] bytes = file.getBytes();
+                 Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+                 Files.write(path, bytes);
+                 user.setFoto("/images/cuochi/" + file.getOriginalFilename() );
+             } catch (IOException e) {
+                 e.printStackTrace();
+                 model.addAttribute("message", "Failed to upload image");
+                 return "register";
+             }
+         }
 
 		// se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
         if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
@@ -110,11 +134,12 @@ public class AuthenticationController {
             cuoco.setSurname(user.getSurname());
             cuoco.setBiografia(user.getBio());
             cuoco.setDateOfBirth(user.getDate());
+            cuoco.setUrlOfPicture(user.getFoto());
             // Imposta altri campi di Cuoco se necessario
 
             cuocoService.saveCuoco(cuoco);
-
-             user.setCuoco(cuoco);
+            
+            user.setCuoco(cuoco);
         	userService.saveUser(user);
             credentials.setUser(user);
             credentialsService.saveCredentials(credentials);

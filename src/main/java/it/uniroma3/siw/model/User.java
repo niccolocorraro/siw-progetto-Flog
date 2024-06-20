@@ -1,5 +1,8 @@
 package it.uniroma3.siw.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,7 +34,10 @@ public class User {
 	@OneToOne 
     private Cuoco cuoco;
 
-    public Long getId() {
+	
+    
+
+	public Long getId() {
 		return id;
 	}
 
@@ -130,4 +136,8 @@ public class User {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
+
+	
+	
+	
 }

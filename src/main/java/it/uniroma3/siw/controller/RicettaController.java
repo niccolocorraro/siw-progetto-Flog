@@ -95,9 +95,7 @@ public class RicettaController {
 		return "ricette.html";
 	}
 	
-	
-	
-	
+
 	@GetMapping("/foundRicette")
     public String searchRicette(@RequestParam("nome") String nome, Model model) {
         List<Ricetta> ricette = ricettaRepository.searchRicetteByNomeContainingIgnoreCase(nome);
@@ -105,6 +103,16 @@ public class RicettaController {
         return "foundRicette.html";
     } 
 	
+	
+	 //temporaneo
+    @GetMapping("/newRicetta")
+	public String newRicetta(Model model) {
+		return "newRicetta.html";
+	
+	}
+    
+    
+    
 	
 	
 	
