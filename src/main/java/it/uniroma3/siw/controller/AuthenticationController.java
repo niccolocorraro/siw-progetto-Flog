@@ -24,6 +24,7 @@ import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.CredentialsRepository;
+import it.uniroma3.siw.service.AdminService;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.CuocoService;
 import it.uniroma3.siw.service.UserService;
@@ -45,6 +46,10 @@ public class AuthenticationController {
     @Autowired
     private CuocoService cuocoService;
     
+
+    @Autowired
+    private AdminService adminService;
+    
     // Directory where profile images will be saved
     private static String UPLOADED_FOLDER = "src/main/resources/static/images/cuochi/";
 
@@ -60,9 +65,9 @@ public class AuthenticationController {
         switch(c.get().getRole()) {
         case "DEFAULT": 
             return "myPage";
-  //      case "ADMIN":
-    //    	adminService.loadUsers(model); 
-      //  	return "admin";
+        case "ADMIN":
+        	adminService.loadUsers(model); 
+        	return "admin";
         	default :
         		return "index";
       }

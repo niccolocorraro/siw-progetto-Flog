@@ -48,7 +48,7 @@
             NOME RICETTA
           </h2>
           <p th:text="${ricetta.descrizione}">descrizione</p>
-          <h6 th:text="${ricetta.cuoco}">cuoco: massimo</h6>
+          <h6 th:text="${ricetta.cuoco.name}">cuoco: massimo</h6>
 
         </div>
             
@@ -70,7 +70,19 @@
         <div class="col p-2 my-1 blu3 bordo">
 
           <h3 class="display-5" style="text-align: start;">Ingredienti necessari:</h3>
-          <p class="display-6 ">lista</p>
+          <div th:if="${ricetta.ingredienti==null || ricetta.ingredienti.isEmpty()}" class="carta-testo">Non ci sono ingredienti nella ricetta</div>
+
+	
+	        <ul class="list-group">
+			    <li th:each="ingrediente : ${ricetta.ingredienti}" class="list-group-item" >
+					<div style="display: flex; justify-content: space-between; align-items: center;">
+	
+			        <h5 class="carta-testo" th:text="${ingrediente.nome} ">Review Title</h5>
+			        			        <h5 class="carta-testo" th:text="${ingrediente.num} ">Review Title</h5>
+
+			        </div>
+			    </li>
+			</ul>
 
         </div>
 

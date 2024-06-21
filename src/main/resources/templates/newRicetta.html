@@ -64,7 +64,6 @@
                             <label for="categoria">Categoria</label>
                             <select class="form-control" id="categoria" th:field="*{portata}" required>
                                 <option value="" disabled selected>Seleziona una categoria</option>
-                                <option value="Antipasto">Antipasto</option>
                                 <option value="primo">Primo</option>
                                 <option value="secondo">Secondo</option>
                                 <option value="dolce">Dolce</option>
@@ -72,27 +71,45 @@
                         </div>
                         
                         <!--url_images-->
-                        <<!--Foto-->
+                        <!--Foto-->
 						<div class="input-group mt-2">
 						  <input type="file" class="form-control" id="file" name="file">
 						  <label class="input-group-text" for="inputGroupFile02" >Foto </label>
 						</div>
 				   	    
 				   	    
-				   	    <!--ingredienti->
-				   	     <div id="ingredients" class="my-2">
-				            <div th:each="ingrediente, iterStat : *{ricetta.ingredienti}">
-				                <div class="input-group mb-2" th:id="'ingrediente-' + ${iterStat.index}">
-				                    <input type="text" th:field="*{nome}" class="form-control" placeholder="Ingrediente">
-				                    <input type="text" th:field="*{num}" class="form-control" placeholder="Quantita'">
-				                    <button type="button" class="btn btn-danger" th:onclick="'removeIngrediente(' + ${iterStat.index} + ')'">Rimuovi</button>
-				                </div>
-				            </div>
-				          </div>
-				         <button type="button" class="btn btn-secondary mb-3" onclick="addIngrediente()">Aggiungi Ingrediente</button>
-				  
--->
-                        
+				   	    <!--ingredienti>
+				   	    <div id="ingredienti" class="my-2">
+				        <div class="input-group mb-2">
+				            <input type="text" name="ingredienti[0].nome" class="form-control" placeholder="Ingrediente" required>
+				            <input type="text" name="ingredienti[0].num" class="form-control" placeholder="Quantita" required>
+				            <button type="button" class="btn btn-danger" onclick="removeIngrediente(0)">Rimuovi</button>
+				        </div>
+				    </div>
+				    <button type="button" class="btn btn-secondary mb-3" onclick="addIngrediente()">Aggiungi Ingrediente</button>
+				   
+				    
+				    <div id="ingredienti">
+				        <div>
+				            <input type="text" name="ingredienti[0].nome" placeholder="Nome ingrediente" required />
+				            <input type="text" name="ingredienti[0].num" placeholder="Quantità ingrediente" required />
+				        </div>
+				        <div>
+				            <input type="text" name="ingredienti[1].nome" placeholder="Nome ingrediente" required />
+				            <input type="text" name="ingredienti[1].num" placeholder="Quantità ingrediente" required />
+				        </div>
+				    </div> -->
+				    
+				     <div id="ingredienti" class="my-2">
+			            <div class="ingredient-group input-group mb-2">
+			                <input type="text" name="ingredienti[0].nome" class="form-control" placeholder="Nome ingrediente" required />
+			                <input type="text" name="ingredienti[0].num" class="form-control" placeholder="Quantità ingrediente" required />
+			            </div>
+			        </div>
+			
+			        <button type="button" class="btn btn-outline-primary " onclick="addIngredient()">Aggiungi Ingrediente</button>
+			        <button type="button" class="btn btn-outline-primary " onclick="removeIngredient()">Rimuovi Ultimo Ingrediente</button>
+								                        
                         
                         <button type="submit" class="btn btn-primary mt-3">Crea Ricetta</button>
                     </form>
@@ -137,27 +154,28 @@
 
     
 <script>
-        function addIngrediente() {
-            const ingredientsDiv = document.getElementById('ingredients');
-            const ingredientIndex = ingredientsDiv.childElementCount - 1;
-            const newIngredientDiv = document.createElement('div');
-            newIngredientDiv.className = 'input-group mb-2';
-            newIngredientDiv.id = 'ingrediente-' + ingredientIndex;
-            newIngredientDiv.innerHTML = `
-                <input type="text" name="ingredients[${ingredientIndex}].name" class="form-control" placeholder="Ingrediente">
-                <input type="text" name="ingredients[${ingredientIndex}].quantity" class="form-control" placeholder="Quantita'">
-                <button type="button" class="btn btn-danger" onclick="removeIngredient(${ingredientIndex})">Rimuovi</button>
+        let ingredientCount = 1;
+
+        function addIngredient() {
+            const ingredientiDiv = document.getElementById('ingredienti');
+            const newDiv = document.createElement('div');
+            newDiv.className = 'ingredient-group input-group mb-2';
+            newDiv.innerHTML = `
+                <input type="text" name="ingredienti[${ingredientCount}].nome" class="form-control" placeholder="Nome ingrediente" required />
+                <input type="text" name="ingredienti[${ingredientCount}].num" class="form-control" placeholder="Quantita' ingrediente" required />
             `;
-            ingredientsDiv.appendChild(newIngredientDiv);
+            ingredientiDiv.appendChild(newDiv);
+            ingredientCount++;
         }
 
-        function removeIngrediente(index) {
-            const ingredientDiv = document.getElementById('ingrediente-' + index);
-            ingredientDiv.remove();
+        function removeIngredient() {
+            const ingredientiDiv = document.getElementById('ingredienti');
+            if (ingredientCount > 1) {
+                ingredientiDiv.removeChild(ingredientiDiv.lastChild);
+                ingredientCount--;
+            }
         }
     </script>
-   
-
 
 </body>
 

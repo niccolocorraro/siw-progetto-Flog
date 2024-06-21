@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import it.uniroma3.siw.controller.validator.RicettaValidator;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Cuoco;
+import it.uniroma3.siw.model.Ingrediente;
 import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.CredentialsRepository;
@@ -134,8 +136,11 @@ public class RicettaController {
     
     @PostMapping("/newRicetta")
     public String newRicetta(@Valid @ModelAttribute("ricetta") Ricetta ricetta, BindingResult bindingResult, 
-                                     Model model, @AuthenticationPrincipal UserDetails userDetails,Authentication authentication,@RequestParam("file") MultipartFile file){
+                                     Model model, @AuthenticationPrincipal UserDetails userDetails,Authentication authentication,
+                                     @RequestParam("file") MultipartFile file,@RequestParam Map<String, String> ingredienti){
 
+    	
+    	
     	 if (!file.isEmpty()) {
              try {
                  byte[] bytes = file.getBytes();
@@ -148,19 +153,65 @@ public class RicettaController {
                  return "newRicetta";
              }
          }
+    	 
+    	
     	
     	 String email = authentication.getName();
          Optional<Credentials> c = credentialsRepository.findByUsername(email);
          User u = c.get().getUser();
-
+         
+         // Validazione della ricetta
+         this.ricettaValidator.validate(ricetta, bindingResult);
+ 
         this.ricettaValidator.validate(ricetta, bindingResult);
         if (!bindingResult.hasErrors()) {
-            Cuoco cuoco = u.getCuoco();
-            ricetta.setCuoco(cuoco);
-            this.ricettaRepository.save(ricetta);
-            cuoco.getRicette().add(ricetta);
-            this.cuocoRepository.save(cuoco);
-            return "redirect:/";
+        	 // Process ingredients
+        	
+        	
+            /*for (int i = 0; i < ingredienti.size() / 2; i++) {
+                Ingrediente ingrediente = new Ingrediente();
+                ingrediente.setNome(ingredienti.get("ingredienti[" + i + "].nome"));
+                ingrediente.setNum(ingredienti.get("ingredienti[" + i + "].num"));
+                ingrediente.setRicetta(ricetta);
+                ricetta.getIngredienti().add(ingrediente);
+            }*/
+            
+         // Processamento degli ingredienti
+            try {
+            	for (int i = 0; ; i++) {
+                    String nomeIngrediente = ingredienti.get("ingredienti[" + i + "].nome");
+                    String quantitaIngrediente = ingredienti.get("ingredienti[" + i + "].num");
+
+                    if (nomeIngrediente == null || quantitaIngrediente == null) {
+                        break;
+                    }
+
+                    // Validazione dell'ingrediente
+                    if (nomeIngrediente.isBlank() || quantitaIngrediente.isBlank()) {
+                        throw new IllegalArgumentException("Nome o quantità dell'ingrediente non validi");
+                    }
+
+                    Ingrediente ingrediente = new Ingrediente();
+                    ingrediente.setNome(nomeIngrediente);
+                    ingrediente.setNum(quantitaIngrediente);
+                    ingrediente.setRicetta(ricetta);
+                    ricetta.getIngredienti().add(ingrediente);
+                }
+            	
+                Cuoco cuoco = u.getCuoco();
+                ricetta.setCuoco(cuoco);
+                this.ricettaRepository.save(ricetta);
+                cuoco.getRicette().add(ricetta);
+                this.cuocoRepository.save(cuoco);
+                return "redirect:/";
+                
+            } catch (Exception e) {
+                // Log dell'errore per il debugging
+                e.printStackTrace();
+                model.addAttribute("message", "Errore durante il salvataggio della ricetta");
+                return "newRicetta";
+            }
+          
         } else {
             return "redirect:/mypage";
         }

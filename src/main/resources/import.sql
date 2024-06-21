@@ -48,3 +48,6 @@ insert into cuoco (id, name, surname,date_of_birth,url_of_picture) values(nextva
 
 
 
+
+INSERT INTO users (id,name,surname,email) values (nextval('users_seq'),'admin','corraro','admin@email.com');
+INSERT INTO credentials (id, username, password, role, user_id) VALUES (nextval('credentials_seq'),'admin', 'admin', 'ADMIN', (SELECT id FROM users where id = 1));

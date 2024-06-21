@@ -3,6 +3,7 @@ package it.uniroma3.siw.model;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +24,7 @@ public class Ricetta {
 		
 		private String foto;
 		
-		@OneToMany(mappedBy="ricetta")
+		@OneToMany(mappedBy="ricetta", cascade = CascadeType.ALL)
 		private List<Ingrediente> ingredienti;
 		
 		private String descrizione;
