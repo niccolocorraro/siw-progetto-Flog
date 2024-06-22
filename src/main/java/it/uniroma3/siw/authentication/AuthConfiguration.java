@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -35,10 +36,12 @@ import static it.uniroma3.siw.model.Credentials.ADMIN_ROLE;
                 .usersByUsernameQuery("SELECT username, password, 1 as enabled FROM credentials WHERE username=?");
     }
     
-    @Bean
-    PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+    @SuppressWarnings("deprecation")
+	  @Bean PasswordEncoder passwordEncoder() {
+		 //return new BCryptPasswordEncoder();
+		  return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+	  
+	  }
 
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
