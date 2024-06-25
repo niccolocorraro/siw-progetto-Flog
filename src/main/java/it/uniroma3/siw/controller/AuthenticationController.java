@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,10 @@ public class AuthenticationController {
         case "DEFAULT": 
             return "myPage";
         case "ADMIN":
-        	adminService.loadUsers(model); 
+        	List<Credentials> users = adminService.loadUsers(model); 
+        	  model.addAttribute("users",users);
+        	  System.out.println("Admin role detected, loading users.");
+              System.out.println("Users in model: " + model.containsAttribute("users"));
         	return "admin";
         	default :
         		return "index";
@@ -95,7 +99,7 @@ public class AuthenticationController {
 			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 			if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
-				return "admin.html";
+				return "index.html";
 			}
 		}
         return "index.html";

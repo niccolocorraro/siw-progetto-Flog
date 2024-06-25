@@ -37,4 +37,12 @@ public class CredentialsService {
         credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
         return this.credentialsRepository.save(credentials);
     }
+    
+
+    @Transactional
+    public void deleteCredentials(Long credentialsId) {
+        Credentials credentials = credentialsRepository.findById(credentialsId).orElse(null);
+        if(credentials!=null) credentialsRepository.delete(credentials);
+    }
+
 }

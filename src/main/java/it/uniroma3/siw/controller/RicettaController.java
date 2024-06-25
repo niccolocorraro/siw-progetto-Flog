@@ -56,6 +56,7 @@ public class RicettaController {
     private static String UPLOADED_FOLDER = "src/main/resources/static/images/piatti/";
 
 	
+    /*
 	@GetMapping(value="/admin/formNewRicetta")
 	public String formNewRicetta(Model model) {
 		model.addAttribute("ricetta", new Ricetta());
@@ -100,7 +101,7 @@ public class RicettaController {
 		} else {
 			return "admin/formNewRicetta.html"; 
 		}
-	}
+	}*/
 	
 	@GetMapping("/ricetta/{id}")
 	public String getRicetta(@PathVariable("id") Long id, Model model) {

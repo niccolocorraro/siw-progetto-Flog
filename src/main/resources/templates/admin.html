@@ -67,20 +67,47 @@
     
 
    
-
+  	<!--ricette-->
     <div class="container text-center my-1">
-      <div class="row  my-1 blu3 bordo">
-        <div class="col p-2 my-1 ">
+        <div class="row  mt-1 blu2 " style="border-top-right-radius: 15px; border-top-left-radius: 15px;">
+          <div class="col p-2  ">
+  
+			<h4 class="display-4 d-flex justify-content-start"  >Users</h4>
+	        
+	        
+	      <div th:if="${users == null}">
+    <p>Users list is null</p>
+</div>
+<div th:if="${users != null}">
+    <p>Users list is not null</p>
+</div>
 
-         
-          
-
-        </div>
-
+<div th:if="${users != null and users.isEmpty()}">
+    Non ci sono users
+</div>
+<div th:if="${users != null and !users.isEmpty()}">
+    <ul class="list-group">
+        <li th:each="user : ${users}" class="list-group-item" style="background-color: rgb(34, 34, 51,0.5);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h5 class="carta-testo" th:text="${user.name}"></h5>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+		        
+	      
+          </div>
+  		  
+  			
       </div>
-
+    
+		
+	  
+	
+    
     </div>
-
 
 
 

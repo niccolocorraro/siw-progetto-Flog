@@ -1,16 +1,18 @@
 package it.uniroma3.siw.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.repository.CredentialsRepository;
 import it.uniroma3.siw.repository.UserRepository;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * The UserService handles logic for Users.
@@ -18,6 +20,9 @@ import java.util.Optional;
 @Service
 public class UserService {
 
+	@Autowired
+	private CredentialsRepository credentialsRepository;
+	
     @Autowired
     protected UserRepository userRepository;
 
@@ -56,4 +61,43 @@ public class UserService {
             result.add(user);
         return result;
     }
+    
+    @Transactional
+	public void updateUser(Long id, User newC) {
+    	
+    	User oldC = (User)credentialsRepository.findById(id).get().getUser();
+    	
+    	newC.setId(oldC.getId());
+
+    	
+    	
+    	if (newC.getName() != null && !newC.getName().equals(oldC.getName())) {
+            oldC.setName(newC.getName());
+        }
+
+        if (newC.getSurname() != null && !newC.getSurname().equals(oldC.getSurname())) {
+            oldC.setSurname(newC.getSurname());
+        }
+
+		/*
+		 * if (newC.getSite_url() != null &&
+		 * !newC.getSite_url().equals(oldC.getSite_url())) {
+		 * oldC.setSite_url(newC.getSite_url()); }
+		 * 
+		 * if (newC.getDescription() != null &&
+		 * !newC.getDescription().equals(oldC.getDescription())) {
+		 * oldC.setDescription(newC.getDescription()); }
+		 * 
+		 * if (newC.getLogo() != null && !newC.getLogo().equals(oldC.getLogo())) {
+		 * oldC.setLogo(newC.getLogo()); }
+		 */
+        
+        Credentials c = credentialsRepository.findByUser(oldC);
+        c.setUser(newC);
+        credentialsRepository.save(c);
+    	
+    	
+      
+}
+
 }
