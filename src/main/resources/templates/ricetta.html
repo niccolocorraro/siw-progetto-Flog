@@ -9,7 +9,7 @@
 
 	<link rel="stylesheet" href="\css\stile.css" />
 	<link rel="stylesheet" href="\css\bootstrapcss\bootstrap.min.css" />
-  <link rel="stylesheet" href="\css\icon\bootstrap-icons-1.11.3\font\bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="\css\icon\bootstrap-icons-1.11.3\font\bootstrap-icons.min.css" />
 	<script defer src="js/bootstrap.bundle.min.js"></script>
 
 </head>
@@ -48,7 +48,7 @@
             NOME RICETTA
           </h2>
           <p th:text="'Descrizione : '+${ricetta.descrizione}">descrizione</p>
-  
+  			
   
 		 <h4 th:if="${ricetta.cuoco == null or ricetta.cuoco.name == ''}">Cuoco: Anonimo</h4>
 			<div th:unless="${ricetta.cuoco == null or ricetta.cuoco.name == ''}">
@@ -58,12 +58,28 @@
 					</a>	
 
 			</div>
-
+	
+			
+			
         </div>
             
-        <div class="col-lg-6 col-md-5 " style="justify-content: start;">
+        <div class="col-lg-6 col-md-5 my-3" style="justify-content: start;">
             <span><img width="50%" th:src=${ricetta.foto} class="my-2 img-fluid img-thumbnail" style="border-radius: 20px;"/></span>
+            <div th:if="${#authentication.principal != null and #authorization.expression('hasAuthority(''ADMIN'')')}">
+                <a type="button" class="btn btn-outline-dark btn-lg" th:href="@{/ricetta/{id}/delete(id=${ricetta.id})}">Cancella</a>
+                <a type="button" class="btn btn-outline-dark btn-lg" th:href="@{/editRicetta/{id}(id=${ricetta.id})}">Modifica</a>
+                
+                
+							
+			
+		
+                
+                
+            </div>
         </div>
+      
+		
+            
       
       </div>
 

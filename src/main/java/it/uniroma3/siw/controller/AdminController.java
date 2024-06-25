@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Ricetta;
+import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.CredentialsRepository;
+import it.uniroma3.siw.repository.RicettaRepository;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.RicettaService;
 import it.uniroma3.siw.service.UserService;
@@ -38,6 +40,8 @@ public class AdminController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired 
+	private RicettaRepository ricettaRepository;
 	
 	@Autowired
 	private RicettaService ricettaService;
@@ -56,14 +60,21 @@ public class AdminController {
  
 	
 	@PostMapping("/editUser/{id}")
-	public String editUser( @ModelAttribute("user") it.uniroma3.siw.model.User c, @PathVariable("id") Long id ) {
+	public String editUser( @ModelAttribute("user") User c, @PathVariable("id") Long id ) {
 		userService.updateUser(id, c);
 		return "redirect:/myPage";
 	}
 	
+	@GetMapping("/editRicetta/{id}")
+	public String editRicetta(@PathVariable("id") Long id, Model m) {
+		m.addAttribute("ricetta", ricettaRepository.findById(id).get());
+		m.addAttribute("id", id);
+		return "editRicetta";
+	}
+	
 	@PostMapping("/editRicetta/{id}")
 	public String editRicetta(Model m,@Valid @ModelAttribute("ricetta") Ricetta r,  @PathVariable("id") Long id,
-			@RequestParam("file") MultipartFile file,@RequestParam("additionalFiles") List<MultipartFile> additionalFiles) {
+			@RequestParam("file") MultipartFile file) {
 		
 		if (!file.isEmpty()) {
             try {
@@ -91,7 +102,7 @@ public class AdminController {
 		return "redirect:/myPage"; 
 	}
 	
-	@GetMapping("/game/{id}/delete")
+	@GetMapping("/ricetta/{id}/delete")
     public String getGame(@PathVariable Long id) {
         ricettaService.deleteRicetta(id);
         return "redirect:/"; 
