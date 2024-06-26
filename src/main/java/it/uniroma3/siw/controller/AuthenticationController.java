@@ -61,8 +61,7 @@ public class AuthenticationController {
         Optional<Credentials> c = credentialsRepository.findByUsername(email);
         User u = c.get().getUser();
         model.addAttribute("user", u );
-        System.out.println("pene1");
-        System.out.println(c.get().getRole());
+        
       
         switch(c.get().getRole()) {
         case "DEFAULT": 
