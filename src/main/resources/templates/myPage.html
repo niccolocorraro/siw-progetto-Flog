@@ -106,8 +106,12 @@
 		                        <span><img width="75%" th:src=${ricetta.foto} class="mt-3" style="border-radius: 20px;height: 70%;"/></span>
 		                        <div class="card-body"style="height: 100px;">
 		                            <h6 class="card-title carta-testo" th:text="${ricetta.nome}"></h6>
-		                            <a th:href="@{'/ricetta' + '/' + ${ricetta.id}}">Dettagli</a>
-		                        </div>
+		                            <a type="button" class="btn btn-outline-primary btn-sm bi bi-info-square-fill" th:href="@{'/ricetta' + '/' + ${ricetta.id}}"></a>
+		                            
+					                <a type="button" class="btn btn-outline-primary btn-sm bi bi-trash-fill " th:href="@{/ricetta/{id}/delete(id=${ricetta.id})}"></a>
+					                <a type="button" class="btn btn-outline-primary btn-sm bi bi-pen-fill" th:href="@{/editRicetta/{id}(id=${ricetta.id})}"></a>
+					                
+				                 </div>
 		                    </div>
 		                
 		                <!-- Chiusura e apertura di una nuova riga ogni 4 elementi -->

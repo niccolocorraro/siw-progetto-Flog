@@ -52,7 +52,7 @@ public class AuthenticationController {
     private AdminService adminService;
     
     // Directory where profile images will be saved
-    private static String UPLOADED_FOLDER = "src/main/resources/static/images/cuochi/";
+    private static String UPLOADED_FOLDER = "src/main/resources/static/images/newCuochi/";
 
     
     @GetMapping("/myPage")
@@ -129,7 +129,7 @@ public class AuthenticationController {
                  byte[] bytes = file.getBytes();
                  Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
                  Files.write(path, bytes);
-                 user.setFoto("/images/cuochi/" + file.getOriginalFilename() );
+                 user.setFoto("/images/newCuochi/" + file.getOriginalFilename() );
              } catch (IOException e) {
                  e.printStackTrace();
                  model.addAttribute("message", "Failed to upload image");

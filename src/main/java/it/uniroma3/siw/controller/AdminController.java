@@ -46,7 +46,7 @@ public class AdminController {
 	@Autowired
 	private RicettaService ricettaService;
 	
-    private static String UPLOADED_FOLDER = "src/main/resources/static/images/";
+    private static String UPLOADED_FOLDER = "src/main/resources/static/images/editedPiatti/";
 
 	
 	@GetMapping("/editUser/{id}")
@@ -81,7 +81,7 @@ public class AdminController {
                 byte[] bytes = file.getBytes();
                 Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
                 Files.write(path, bytes);
-                r.setFoto("/images/" + file.getOriginalFilename() );
+                r.setFoto("/images/editedPiatti/" + file.getOriginalFilename() );
             } catch (IOException e) {
                 e.printStackTrace();
                 return "newRicetta";

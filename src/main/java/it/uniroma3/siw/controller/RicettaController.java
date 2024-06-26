@@ -53,7 +53,7 @@ public class RicettaController {
 	private CredentialsRepository credentialsRepository;
 
 	  // Directory where profile images will be saved
-    private static String UPLOADED_FOLDER = "src/main/resources/static/images/piatti/";
+    private static String UPLOADED_FOLDER = "src/main/resources/static/images/newPiatti/";
 
 	
     /*
@@ -147,7 +147,7 @@ public class RicettaController {
                  byte[] bytes = file.getBytes();
                  Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
                  Files.write(path, bytes);
-                 ricetta.setFoto("/images/piatti/" + file.getOriginalFilename() );
+                 ricetta.setFoto("/images/newPiatti/" + file.getOriginalFilename() );
              } catch (IOException e) {
                  e.printStackTrace();
                  model.addAttribute("message", "Failed to upload image");
