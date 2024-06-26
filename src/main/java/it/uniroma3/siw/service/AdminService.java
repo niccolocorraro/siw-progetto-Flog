@@ -13,7 +13,7 @@ public class AdminService {
 	@Autowired
 	private CredentialsRepository credentialRepository;
 	
-	public List<Credentials> loadUsers(Model model) {
+	public List<Credentials> loadUsers() {
 		 List<Credentials> users = credentialRepository.findAllByRole("DEFAULT");
 	        System.out.println("Number of users found: " + users.size());  // Debug line
 	        return users;

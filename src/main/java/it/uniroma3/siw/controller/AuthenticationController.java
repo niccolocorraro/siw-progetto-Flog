@@ -61,16 +61,17 @@ public class AuthenticationController {
         Optional<Credentials> c = credentialsRepository.findByUsername(email);
         User u = c.get().getUser();
         model.addAttribute("user", u );
-        
+        System.out.println("pene1");
+        System.out.println(c.get().getRole());
       
         switch(c.get().getRole()) {
         case "DEFAULT": 
             return "myPage";
         case "ADMIN":
-        	List<Credentials> users = adminService.loadUsers(model); 
+
+        	System.out.println("pene1");
+        	List<Credentials> users = adminService.loadUsers(); 
         	  model.addAttribute("users",users);
-        	  System.out.println("Admin role detected, loading users.");
-              System.out.println("Users in model: " + model.containsAttribute("users"));
         	return "admin";
         	default :
         		return "index";

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.CredentialsRepository;
 import it.uniroma3.siw.repository.UserRepository;
@@ -25,6 +26,9 @@ public class UserService {
 	
     @Autowired
     protected UserRepository userRepository;
+    
+    @Autowired
+    private CuocoService cuocoService;
 
     /**
      * This method retrieves a User from the DB based on its ID.
@@ -68,7 +72,8 @@ public class UserService {
     	User oldC = (User)credentialsRepository.findById(id).get().getUser();
     	
     	newC.setId(oldC.getId());
-
+    	newC.setEmail(oldC.getEmail());
+    	newC.setCuoco(oldC.getCuoco());
     	
     	
     	if (newC.getName() != null && !newC.getName().equals(oldC.getName())) {
@@ -78,24 +83,35 @@ public class UserService {
         if (newC.getSurname() != null && !newC.getSurname().equals(oldC.getSurname())) {
             oldC.setSurname(newC.getSurname());
         }
+        
+        if (newC.getBio() != null && !newC.getBio().equals(oldC.getBio())) {
+            oldC.setBio(newC.getBio());
+        }
 
-		/*
-		 * if (newC.getSite_url() != null &&
-		 * !newC.getSite_url().equals(oldC.getSite_url())) {
-		 * oldC.setSite_url(newC.getSite_url()); }
-		 * 
-		 * if (newC.getDescription() != null &&
-		 * !newC.getDescription().equals(oldC.getDescription())) {
-		 * oldC.setDescription(newC.getDescription()); }
-		 * 
-		 * if (newC.getLogo() != null && !newC.getLogo().equals(oldC.getLogo())) {
-		 * oldC.setLogo(newC.getLogo()); }
-		 */
+        if (newC.getDate() != null && !newC.getDate().equals(oldC.getDate())) {
+            oldC.setDate(newC.getDate());
+        }
+        
+        if (newC.getFoto() != null && !newC.getFoto().equals(oldC.getFoto())) {
+            oldC.setFoto(newC.getFoto());
+        }
+
+        /*
+        Cuoco cu = new Cuoco();
+        cu.setName(newC.getName());
+        cu.setSurname(newC.getSurname());
+        cu.setDateOfBirth(newC.getDate());
+        cu.setBiografia(newC.getBio());
+        cu.setUrlOfPicture(newC.getFoto());
+        
+       
+        
+        cuocoService.updateCuoco(oldC.getCuoco().getId(), cu);
+        */
         
         Credentials c = credentialsRepository.findByUser(oldC);
         c.setUser(newC);
         credentialsRepository.save(c);
-    	
     	
       
 }

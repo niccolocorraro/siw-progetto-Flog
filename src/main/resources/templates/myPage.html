@@ -108,9 +108,30 @@
 		                            <h6 class="card-title carta-testo" th:text="${ricetta.nome}"></h6>
 		                            <a type="button" class="btn btn-outline-primary btn-sm bi bi-info-square-fill" th:href="@{'/ricetta' + '/' + ${ricetta.id}}"></a>
 		                            
-					                <a type="button" class="btn btn-outline-primary btn-sm bi bi-trash-fill " th:href="@{/ricetta/{id}/delete(id=${ricetta.id})}"></a>
+					                <a type="button" class="btn btn-outline-primary btn-sm bi bi-trash-fill " data-bs-toggle="modal" data-bs-target="#modal" ></a>
 					                <a type="button" class="btn btn-outline-primary btn-sm bi bi-pen-fill" th:href="@{/editRicetta/{id}(id=${ricetta.id})}"></a>
 					                
+					                
+					         
+										
+										<!-- Modal -->
+										<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										  <div class="modal-dialog">
+										    <div class="modal-content">
+										      <div class="modal-header">
+										        <h1 class="modal-title fs-5" id="exampleModalLabel">AVVISO!</h1>
+										        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										      </div>
+										      <div class="modal-body">
+										        Se elimini la ricetta non sara' piu' possibile recuperarla
+										      </div>
+										      <div class="modal-footer">
+										        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+										        <button type="button" class="btn btn-primary" th:href="@{/ricetta/{id}/delete(id=${ricetta.id})}">Save changes</button>
+										      </div>
+										    </div>
+										  </div>
+										</div>
 				                 </div>
 		                    </div>
 		                

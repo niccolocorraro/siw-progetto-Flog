@@ -75,27 +75,30 @@
 			<h4 class="display-4 d-flex justify-content-start"  >Users</h4>
 	        
 	        
-	      <div th:if="${users == null}">
-    <p>Users list is null</p>
-</div>
-<div th:if="${users != null}">
-    <p>Users list is not null</p>
-</div>
-
-<div th:if="${users != null and users.isEmpty()}">
-    Non ci sono users
-</div>
-<div th:if="${users != null and !users.isEmpty()}">
-    <ul class="list-group">
-        <li th:each="user : ${users}" class="list-group-item" style="background-color: rgb(34, 34, 51,0.5);">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <h5 class="carta-testo" th:text="${user.name}"></h5>
-                </div>
-            </div>
-        </li>
-    </ul>
-</div>
+		<div th:if="${users == null}">
+		    <p>Users list is null</p>
+		</div>
+		
+		
+		<div th:if="${users != null and users.isEmpty()}">
+		    Non ci sono users
+		</div>
+		<div th:if="${users != null and !users.isEmpty()}">
+		    <ul class="list-group">
+		        <li th:each="user : ${users}" class="list-group-item" >
+		            <div style="display: flex; justify-content: space-between; align-items: center;">
+		                <div>
+		                    <h5 class="carta-testo" th:text="${user.user.name}"></h5>
+		                </div>
+		                
+		                <div style="display: flex; justify-content: end; align-items: center;">
+								</h5><a class="d-flex justify-content-end btn btn-outline-primary ms-1" th:href="@{/editUser/{id}(id=${user.user.id})}">Edit  </a>
+								<a class="d-flex justify-content-end btn btn-outline-primary ms-1" th:href="@{/myPage/editUser/{id}(id=${user.user.id})}" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>	
+							</div>
+		            </div>
+		        </li>
+		    </ul>
+		</div>
 		        
 	      
           </div>
