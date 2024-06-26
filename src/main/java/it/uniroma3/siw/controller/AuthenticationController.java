@@ -69,7 +69,6 @@ public class AuthenticationController {
             return "myPage";
         case "ADMIN":
 
-        	System.out.println("pene1");
         	List<Credentials> users = adminService.loadUsers(); 
         	  model.addAttribute("users",users);
         	return "admin";
@@ -106,16 +105,7 @@ public class AuthenticationController {
         return "index.html";
 	}
 		
-    @GetMapping(value = "/success")
-    public String defaultAfterLogin(Model model) {
-        
-    	UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
-    	if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
-            return "admin.html";
-        }
-        return "index.html";
-    }
+  
 
 	@PostMapping(value = { "/register" })
     public String registerUser(@Valid @ModelAttribute("user") User user,
@@ -141,16 +131,13 @@ public class AuthenticationController {
 		// se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
         if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
         	Cuoco cuoco = new Cuoco();
-            cuoco.setName(user.getName());
-            cuoco.setSurname(user.getSurname());
-            cuoco.setBiografia(user.getBio()); 
-            cuoco.setDateOfBirth(user.getDate());
-            cuoco.setUrlOfPicture(user.getFoto());
             // Imposta altri campi di Cuoco se necessario
 
             cuocoService.saveCuoco(cuoco);
-            
+            cuoco.setUser(user);
+
             user.setCuoco(cuoco);
+            
         	userService.saveUser(user);
             credentials.setUser(user);
             credentialsService.saveCredentials(credentials);

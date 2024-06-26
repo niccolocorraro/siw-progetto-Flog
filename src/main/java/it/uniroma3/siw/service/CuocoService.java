@@ -16,8 +16,6 @@ public class CuocoService {
 	@Autowired
 	private CuocoRepository cuocoRepository;
 	
-	@Autowired 
-	private UserRepository userRepository;
 	
 	public Cuoco findById(Long id) {
 		return cuocoRepository.findById(id).get();

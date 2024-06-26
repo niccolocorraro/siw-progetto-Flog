@@ -41,13 +41,5 @@ insert into ricetta (id, nome, foto,portata,descrizione) values(nextval('ric_seq
 
 
 
-insert into cuoco (id, name, surname,date_of_birth,url_of_picture,biografia) values(nextval('cuo_seq'), 'Marco', 'travaglio','2002-02-02','/images/cuochi/cuoco1.jpg','lorem70Contraryn by H. Rackham.');
-insert into cuoco (id, name, surname,date_of_birth,url_of_picture) values(nextval('cuo_seq'), 'Aldo', 'moro','2002-11-09','/images/cuochi/cuoco1.jpg');
-insert into cuoco (id, name, surname,date_of_birth,url_of_picture) values(nextval('cuo_seq'), 'Domenico', 'De Marchis','2002-06-20','/images/cuochi/cuoco2.jpg');
-insert into cuoco (id, name, surname,date_of_birth,url_of_picture) values(nextval('cuo_seq'), 'Francoise', 'Fontanaise','1935-06-20','/images/cuochi/cuoco2.jpg');
-
-
-
-
 INSERT INTO users (id,name,surname,email) values (nextval('users_seq'),'admin','corraro','admin@email.com');
 INSERT INTO credentials (id, username, password, role, user_id) VALUES (nextval('credentials_seq'),'admin', 'a1', 'ADMIN', (SELECT id FROM users where id = 1));

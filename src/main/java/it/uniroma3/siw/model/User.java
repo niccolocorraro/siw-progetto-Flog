@@ -28,7 +28,7 @@ public class User {
 	
     private String foto;
 	
-	@OneToOne 
+	@OneToOne
     private Cuoco cuoco;
 
    

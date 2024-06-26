@@ -27,9 +27,7 @@ public class UserService {
     @Autowired
     protected UserRepository userRepository;
     
-    @Autowired
-    private CuocoService cuocoService;
-
+   
     /**
      * This method retrieves a User from the DB based on its ID.
      * @param id the id of the User to retrieve from the DB
@@ -52,20 +50,32 @@ public class UserService {
     public User saveUser(User user) {
         return this.userRepository.save(user);
     }
+    
+    @Transactional
+    public List<Credentials> loadUsers() {
+		 List<Credentials> users = credentialsRepository.findAllByRole("DEFAULT");
+	        System.out.println("Number of users found: " + users.size());  // Debug line
+	        return users;
+	}
 
+    
     /**
      * This method retrieves all Users from the DB.
      * @return a List with all the retrieved Users
      */
     @Transactional
     public List<User> getAllUsers() {
+        List<Credentials> defaultRoleCredentials = credentialsRepository.findAllByRole("DEFAULT");
         List<User> result = new ArrayList<>();
-        Iterable<User> iterable = this.userRepository.findAll();
-        for(User user : iterable)
-            result.add(user);
+
+        for (Credentials credentials : defaultRoleCredentials) {
+            result.add(credentials.getUser());
+        }
         return result;
-    }
+    }    
     
+   
+
     @Transactional
 	public void updateUser(Long id, User newC) {
     	

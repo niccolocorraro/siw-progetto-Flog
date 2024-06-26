@@ -46,13 +46,13 @@
         <div class="col-lg-6 col-md-5 p-3  justify-content-center">
 
           <h2 class="display-4"  th:text="${cuoco.name} + ' ' + ${cuoco.surname}"> </h2>
-          <h5 th:text="${cuoco.dateOfBirth}">descrizione</h5>
+          <h5 th:text="${cuoco.date}">descrizione</h5>
           <h6>Biografia</h6>
-          <p th:text="${cuoco.biografia}"> Biografia</p>
+          <p th:text="${cuoco.bio}"> Biografia</p>
         </div>
             
         <div class="col-lg-6 col-md-5 " style="justify-content: start;">
-            <span><img width="50%" th:src=${cuoco.urlOfPicture} class="my-3 img-fluid img-thumbnail" style="border-radius: 20px;"/></span>
+            <span><img width="50%" th:src=${cuoco.foto} class="my-3 img-fluid img-thumbnail" style="border-radius: 20px;"/></span>
         </div>
       
       </div>
@@ -91,10 +91,10 @@
 	        
 	        
 	      
-	        <div th:if="${cuoco.ricette.isEmpty()} " >Non ci sono Ricette</div>
+	        <div th:if="${cuoco.cuoco.ricette.isEmpty()} " >Non ci sono Ricette</div>
 	
 			 <div class="row justify-content-center">
-		            <div  class="col-lg-2 col-md-3 mb-2" th:each="ricetta, iterStat : ${cuoco.ricette}" >
+		            <div  class="col-lg-2 col-md-3 mb-2" th:each="ricetta, iterStat : ${cuoco.cuoco.ricette}" >
 		                
 		                    <div class="card coluno" style="border-radius: 20px;border-color: #b5e8e9; border-style: double;">
 		                        <span><img width="75%" th:src=${ricetta.foto} class="mt-3" style="border-radius: 20px;height: 70%;"/></span>

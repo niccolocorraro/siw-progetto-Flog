@@ -1,13 +1,13 @@
 package it.uniroma3.siw.model;
 
 import java.util.List;
-import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Cuoco {
@@ -15,18 +15,12 @@ public class Cuoco {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-	private String name;
-	private String surname;
-	
-	private String dateOfBirth;
-	
-	private String urlOfPicture;
-
-	private String biografia;
-
 	
 	@OneToMany(mappedBy="cuoco")
 	private List<Ricetta> ricette;
+	
+	@OneToOne
+	private User user;
 	
 	public Cuoco(){
 	
@@ -40,45 +34,6 @@ public class Cuoco {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public String getDateOfBirth() {
-		return dateOfBirth;
-	}
-
-	public void setDateOfBirth(String dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-
-	public String getUrlOfPicture() {
-		return urlOfPicture;
-	}
-
-	public void setUrlOfPicture(String urlOfPicture) {
-		this.urlOfPicture = urlOfPicture;
-	}
-
-	public String getBiografia() {
-		return biografia;
-	}
-
-	public void setBiografia(String biografia) {
-		this.biografia = biografia;
-	}
 
 	public List<Ricetta> getRicette() {
 		return ricette;
@@ -88,24 +43,20 @@ public class Cuoco {
 		this.ricette = ricetteCreate;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(dateOfBirth, ricette, id, name, surname, urlOfPicture);
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Cuoco other = (Cuoco) obj;
-		return Objects.equals(dateOfBirth, other.dateOfBirth) && Objects.equals(ricette, other.ricette)
-				&& Objects.equals(id, other.id) && Objects.equals(name, other.name)
-				&& Objects.equals(surname, other.surname) && Objects.equals(urlOfPicture, other.urlOfPicture);
+	public String toString() {
+		return "Cuoco [id=" + id + ", ricette=" + ricette + ", user=" + user + "]";
 	}
 	
+	
+
 	}
 

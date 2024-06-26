@@ -50,12 +50,11 @@
           <p th:text="'Descrizione : '+${ricetta.descrizione}">descrizione</p>
   			
   
-		 <h4 th:if="${ricetta.cuoco == null or ricetta.cuoco.name == ''}">Cuoco: Anonimo</h4>
-			<div th:unless="${ricetta.cuoco == null or ricetta.cuoco.name == ''}">
+		 <h4 th:if="${ricetta.cuoco == null or ricetta.cuoco == ''}">Cuoco: Anonimo</h4>
+			<div th:unless="${ricetta.cuoco == null or ricetta.cuoco == ''}">
 				
-                <a class="btn btn-outline-dark " th:href="@{'/cuoco' + '/' + ${ricetta.cuoco.id}}">
-					<h5 class="d-flex align-items-center" th:text="'Cuoco : ' + ${ricetta.cuoco.name}">Nome CUoco</h5>
-					</a>	
+                                            <a th:href="@{'/cuoco2' + '/' + ${ricetta.cuoco.id}}">Dettagli</a>	
+
 
 			</div>
 	

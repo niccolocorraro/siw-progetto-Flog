@@ -129,6 +129,15 @@ public class Ricetta {
 			this.ingredienti = ingredienti;
 		}
 
+		@Override
+		public String toString() {
+			return "Ricetta [id=" + id + ", nome=" + nome + ", copertina=" + copertina + ", foto=" + foto
+					+ ", ingredienti=" + ingredienti + ", descrizione=" + descrizione + ", cuoco=" + cuoco.toString()
+					+ ", portata=" + portata + "]";
+		}
+		
+		
+
 		
 		
         
