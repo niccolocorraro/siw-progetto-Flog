@@ -99,13 +99,14 @@ public class AdminController {
 	@GetMapping("myPage/delete/{id}") 
 	public String deleteUser(@PathVariable("id") Long id){
 		credentialsService.deleteCredentials(id); 
+		
 		return "redirect:/myPage"; 
 	}
 	
-	@GetMapping("/ricetta/{id}/delete")
-    public String getGame(@PathVariable Long id) {
+	@GetMapping("/ricetta/delete/{id}")
+    public String getRicetta(@PathVariable Long id) {
         ricettaService.deleteRicetta(id);
-        return "redirect:/"; 
+        return "redirect:/myPage"; 
     }
 
 }

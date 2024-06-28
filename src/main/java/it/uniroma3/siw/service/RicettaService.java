@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.model.Ricetta;
+import it.uniroma3.siw.repository.IngredienteRepository;
 import it.uniroma3.siw.repository.RicettaRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -17,6 +18,9 @@ public class RicettaService {
 	
 	@Autowired 
 	private RicettaRepository ricettaRepository;
+	
+	@Autowired 
+	private IngredienteRepository ingredienteRepository;
 	
 	public Ricetta findById(Long id) {
 		return ricettaRepository.findById(id).get();
@@ -72,6 +76,7 @@ public class RicettaService {
 		
 		Ricetta ricetta = ricettaRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid ricetta ID:" + id));
+		ingredienteRepository.deleteAll(ricetta.getIngredienti());
 		ricettaRepository.delete(ricetta);
 		
 	}

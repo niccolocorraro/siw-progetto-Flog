@@ -8,7 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.CredentialsRepository;
+import it.uniroma3.siw.repository.CuocoRepository;
+import it.uniroma3.siw.repository.RicettaRepository;
+import it.uniroma3.siw.repository.UserRepository;
 
 @Service
 public class CredentialsService {
@@ -19,6 +23,17 @@ public class CredentialsService {
     @Autowired
     protected CredentialsRepository credentialsRepository;
 
+    @Autowired
+    protected UserRepository userRepository;
+
+    @Autowired
+    protected CuocoRepository cuocoRepository;
+    
+    
+    @Autowired
+    protected RicettaRepository ricettaRepository;
+    
+    
     @Transactional
     public Credentials getCredentials(Long id) {
         Optional<Credentials> result = this.credentialsRepository.findById(id);
@@ -42,7 +57,12 @@ public class CredentialsService {
     @Transactional
     public void deleteCredentials(Long credentialsId) {
         Credentials credentials = credentialsRepository.findById(credentialsId).orElse(null);
+        User u = userRepository.findAllById(credentialsId);
+        ricettaRepository.deleteAll(u.getCuoco().getRicette());
+        cuocoRepository.delete(u.getCuoco());
+        
         if(credentials!=null) credentialsRepository.delete(credentials);
+        
     }
 
 }

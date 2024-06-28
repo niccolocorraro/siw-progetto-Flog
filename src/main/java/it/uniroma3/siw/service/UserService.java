@@ -106,18 +106,7 @@ public class UserService {
             oldC.setFoto(newC.getFoto());
         }
 
-        /*
-        Cuoco cu = new Cuoco();
-        cu.setName(newC.getName());
-        cu.setSurname(newC.getSurname());
-        cu.setDateOfBirth(newC.getDate());
-        cu.setBiografia(newC.getBio());
-        cu.setUrlOfPicture(newC.getFoto());
-        
-       
-        
-        cuocoService.updateCuoco(oldC.getCuoco().getId(), cu);
-        */
+     
         
         Credentials c = credentialsRepository.findByUser(oldC);
         c.setUser(newC);

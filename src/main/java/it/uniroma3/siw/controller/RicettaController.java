@@ -166,16 +166,7 @@ public class RicettaController {
  
         this.ricettaValidator.validate(ricetta, bindingResult);
         if (!bindingResult.hasErrors()) {
-        	 // Process ingredients
-        	
-        	
-            /*for (int i = 0; i < ingredienti.size() / 2; i++) {
-                Ingrediente ingrediente = new Ingrediente();
-                ingrediente.setNome(ingredienti.get("ingredienti[" + i + "].nome"));
-                ingrediente.setNum(ingredienti.get("ingredienti[" + i + "].num"));
-                ingrediente.setRicetta(ricetta);
-                ricetta.getIngredienti().add(ingrediente);
-            }*/
+        	 
             
          // Processamento degli ingredienti
             try {
