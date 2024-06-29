@@ -14,12 +14,18 @@ public interface RicettaRepository extends CrudRepository<Ricetta, Long>{
 	
 	abstract boolean existsByNome(String nome);	
 
+	abstract boolean existsByCuoco(Cuoco cuoco);
+	
+    boolean existsByNomeAndCuoco(String nome, Cuoco cuoco);
+
+	
 	public List<Ricetta> findAll();
 	
     List<Ricetta> findByNome(String nome);
 
   //@Query("SELECT g FROM Ricetta g WHERE LOWER (g.nome) LIKE LOWER (CONCAT ('%', : nome , '%'))")
   	public List<Ricetta> searchRicetteByNomeContainingIgnoreCase(String nome);
+  	
   	
   	  
 	

@@ -1,11 +1,5 @@
 package it.uniroma3.siw.controller;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,7 +40,6 @@ public class AdminController {
 	@Autowired
 	private RicettaService ricettaService;
 	
-    private static String UPLOADED_FOLDER = "src/main/resources/static/images/editedPiatti/";
 
 	
 	@GetMapping("/editUser/{id}")
@@ -76,19 +69,9 @@ public class AdminController {
 	public String editRicetta(Model m,@Valid @ModelAttribute("ricetta") Ricetta r,  @PathVariable("id") Long id,
 			@RequestParam("file") MultipartFile file) {
 		
-		if (!file.isEmpty()) {
-            try {
-                byte[] bytes = file.getBytes();
-                Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-                Files.write(path, bytes);
-                r.setFoto("/images/editedPiatti/" + file.getOriginalFilename() );
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "newRicetta";
-            }
-		}
+	
 		
-		ricettaService.updateRicetta(id,r);
+		ricettaService.updateRicetta(id,r,file);
 		return "redirect:/myPage";
 	}
 	

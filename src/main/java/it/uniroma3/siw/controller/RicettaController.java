@@ -56,52 +56,6 @@ public class RicettaController {
     private static String UPLOADED_FOLDER = "src/main/resources/static/images/newPiatti/";
 
 	
-    /*
-	@GetMapping(value="/admin/formNewRicetta")
-	public String formNewRicetta(Model model) {
-		model.addAttribute("ricetta", new Ricetta());
-		return "admin/formNewRicetta.html";
-	}
-	
-	
-
-	@GetMapping(value="/admin/formUpdateRicetta/{id}")
-	public String formUpdateRicetta(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("ricetta", ricettaRepository.findById(id).get());
-		return "admin/formUpdateRicetta.html";
-	}
-
-	@GetMapping(value="/admin/indexRicetta")
-	public String indexRicetta() {
-		return "admin/indexRicetta.html";
-	}
-	
-	@GetMapping(value="/admin/manageRicette")
-	public String manageRicette(Model model) {
-		model.addAttribute("ricette", this.ricettaRepository.findAll());
-		return "admin/manageRicette.html";
-	}
-	
-	
-	@GetMapping(value="/admin/addCuoco/{id}")
-	public String addCuoco(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("cuochi", cuocoRepository.findAll());
-		model.addAttribute("ricetta", ricettaRepository.findById(id).get());
-		return "admin/cuochiToAdd.html";
-	}
-
-	@PostMapping("/admin/ricetta")
-	public String newRicetta(@Valid @ModelAttribute("ricetta") Ricetta ricetta, BindingResult bindingResult, Model model) {
-		
-		this.ricettaValidator.validate(ricetta, bindingResult);
-		if (!bindingResult.hasErrors()) {
-			this.ricettaRepository.save(ricetta); 
-			model.addAttribute("ricetta", ricetta);
-			return "ricetta.html";
-		} else {
-			return "admin/formNewRicetta.html"; 
-		}
-	}*/
 	
 	@GetMapping("/ricetta/{id}")
 	public String getRicetta(@PathVariable("id") Long id, Model model) {
@@ -127,7 +81,7 @@ public class RicettaController {
     } 
 	
 	
-	 //temporaneo
+	 
     @GetMapping("/newRicetta")
 	public String newRicetta(Model model) {
     	model.addAttribute("ricetta",new Ricetta());
@@ -162,9 +116,10 @@ public class RicettaController {
          User u = c.get().getUser();
          
          // Validazione della ricetta
+         Cuoco cuoco = u.getCuoco();
+         ricetta.setCuoco(cuoco);
          this.ricettaValidator.validate(ricetta, bindingResult);
  
-        this.ricettaValidator.validate(ricetta, bindingResult);
         if (!bindingResult.hasErrors()) {
         	 
             
@@ -190,22 +145,22 @@ public class RicettaController {
                     ricetta.getIngredienti().add(ingrediente);
                 }
             	
-                Cuoco cuoco = u.getCuoco();
-                ricetta.setCuoco(cuoco);
+                
                 this.ricettaRepository.save(ricetta);
                 cuoco.getRicette().add(ricetta);
                 this.cuocoRepository.save(cuoco);
                 return "redirect:/";
                 
             } catch (Exception e) {
-                // Log dell'errore per il debugging
-                e.printStackTrace();
+
+            	e.printStackTrace();
                 model.addAttribute("message", "Errore durante il salvataggio della ricetta");
                 return "newRicetta";
             }
           
         } else {
-            return "redirect:/mypage";
+        	 model.addAttribute("ricetta", ricetta);
+             return "newRicetta";
         }
     }
      

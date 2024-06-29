@@ -1,10 +1,15 @@
 package it.uniroma3.siw.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.repository.IngredienteRepository;
@@ -15,6 +20,10 @@ import jakarta.validation.Valid;
 @Service
 public class RicettaService {
 
+	  // Directory where profile images will be saved
+    private static String UPLOADED_FOLDER = "src/main/resources/static/images/editedPiatti/";
+
+	
 	
 	@Autowired 
 	private RicettaRepository ricettaRepository;
@@ -41,7 +50,7 @@ public class RicettaService {
         return allRicette.subList(0, Math.min(count, allRicette.size()));
 	}
 	
-	public void updateRicetta(Long id, @Valid Ricetta newRicetta) {
+	public void updateRicetta(Long id, @Valid Ricetta newRicetta, MultipartFile file) {
 		
 		Ricetta oldRicetta = ricettaRepository.findById(id).get();
 	    
@@ -59,8 +68,28 @@ public class RicettaService {
             oldRicetta.setDescrizione(newRicetta.getDescrizione());
         }
 	    
-	    if (newRicetta.getCopertina()!= null && !newRicetta.getCopertina().equals(oldRicetta.getCopertina())) {
-            oldRicetta.setCopertina(newRicetta.getCopertina());
+
+        if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+                Files.write(path, bytes);
+                oldRicetta.setFoto("/images/editedPiatti/" + file.getOriginalFilename());
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Gestire l'errore se necessario
+            }
+        }
+        else {
+        	 try {
+                 byte[] bytes = file.getBytes();
+                 Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+                 Files.write(path, bytes);
+                 oldRicetta.setFoto(oldRicetta.getFoto());
+             } catch (IOException e) {
+                 e.printStackTrace();
+                 // Gestire l'errore se necessario
+             }
         }
 	    
 	    

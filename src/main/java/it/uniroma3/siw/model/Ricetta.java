@@ -20,7 +20,7 @@ public class Ricetta {
         private Long id;
         @NotBlank
         private String nome; 
-		private String copertina;
+//		private String copertina;
 		
 		private String foto;
 		
@@ -86,7 +86,7 @@ public class Ricetta {
 
 		@Override
 		public int hashCode() {
-			return Objects.hash(cuoco, descrizione, id, nome, copertina);
+			return Objects.hash(cuoco, descrizione, id, nome);
 		}
 
 		@Override
@@ -99,19 +99,12 @@ public class Ricetta {
 				return false;
 			Ricetta other = (Ricetta) obj;
 			return Objects.equals(cuoco, other.cuoco) && Objects.equals(descrizione, other.descrizione)
-					&& Objects.equals(id, other.id) 
-					&& Objects.equals(nome, other.nome) && Objects.equals(copertina, other.copertina);
+					&& Objects.equals(id, other.id) ;
 		}
 
 		
 
-		public String getCopertina() {
-			return copertina;
-		}
-
-		public void setCopertina(String copertina) {
-			this.copertina = copertina;
-		}
+		
 
 		public String getFoto() {
 			return foto;
@@ -131,7 +124,7 @@ public class Ricetta {
 
 		@Override
 		public String toString() {
-			return "Ricetta [id=" + id + ", nome=" + nome + ", copertina=" + copertina + ", foto=" + foto
+			return "Ricetta [id=" + id + ", nome=" + nome + ", foto=" + foto
 					+ ", ingredienti=" + ingredienti + ", descrizione=" + descrizione + ", cuoco=" + cuoco.toString()
 					+ ", portata=" + portata + "]";
 		}

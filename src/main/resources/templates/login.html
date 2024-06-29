@@ -51,6 +51,9 @@
 				  <input name="password" type="password" style="border-style: double; border-color: black;" class="form-control" id="floatingPassword" placeholder="Password" required/>
 				  <label for="floatingPassword">Password</label>
 				</div>
+				<div>
+					<span th:if="${param.error != null}">Username o password errati</span>
+				</div>
 			
 			<div>
 				<span><button class="my-3 btn btn-outline-dark" type="submit">Login</button></span>
