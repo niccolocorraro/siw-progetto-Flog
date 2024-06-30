@@ -18,13 +18,14 @@ public class Ricetta {
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         private Long id;
+        
+        
         @NotBlank
         private String nome; 
-//		private String copertina;
 		
 		private String foto;
 		
-		@OneToMany(mappedBy="ricetta", cascade = CascadeType.ALL)
+		@OneToMany(mappedBy="ricetta", cascade = CascadeType.ALL, orphanRemoval = true)
 		private List<Ingrediente> ingredienti;
 		
 		private String descrizione;
@@ -37,7 +38,6 @@ public class Ricetta {
 		
 		public Ricetta() {
 			super();
-			// TODO Auto-generated constructor stub
 		}
 
 		public Long getId() {

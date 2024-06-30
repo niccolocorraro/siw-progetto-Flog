@@ -14,6 +14,9 @@ public class User {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+	
+	  // Directory where profile images will be saved
+    private static String UPLOADED_PIC = "/images/cuochi/user.jpg";
 
 	@NotBlank
 	private String name;
@@ -31,6 +34,9 @@ public class User {
 	@OneToOne
     private Cuoco cuoco;
 
+	public User(){
+		this.foto = UPLOADED_PIC;
+	}
    
 
 	public Long getId() {

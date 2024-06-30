@@ -27,30 +27,7 @@ public class CuocoController {
 	@Autowired 
 	private UserService userService;
 	
-	/*
-	@GetMapping(value="/admin/formNewCuoco")
-	public String formNewCuoco(Model model) {
-		model.addAttribute("cuoco", new Cuoco());
-		return "admin/formNewCuoco.html";
-	}
 	
-	@GetMapping(value="/admin/indexCuoco")
-	public String indexCuoco() {
-		return "admin/indexCuoco.html";
-	}
-	
-	@PostMapping("/admin/cuoco")
-	public String newCuoco(@ModelAttribute("cuoco") Cuoco cuoco, Model model) {
-		if (!cuocoRepository.existsByNameAndSurname(cuoco.getName(), cuoco.getSurname())) {
-			this.cuocoRepository.save(cuoco); 
-			model.addAttribute("cuoco", cuoco);
-			return "cuoco.html";
-		} else {
-			model.addAttribute("messaggioErrore", "Questo cuoco esiste già");
-			return "admin/formNewCuoco.html"; 
-		}
-	}
-*/
 	@GetMapping("/cuoco/{id}")
 	public String getCuoco(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("cuoco", this.userRepository.findById(id).get());

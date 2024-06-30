@@ -17,7 +17,7 @@ public class Ingrediente {
 
     private String num;
     
-    @ManyToOne
+    @ManyToOne 
     private Ricetta ricetta;
 
 	public Long getId() {
