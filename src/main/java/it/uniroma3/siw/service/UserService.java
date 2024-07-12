@@ -1,5 +1,9 @@
 package it.uniroma3.siw.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -8,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Credentials;
-import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.CredentialsRepository;
 import it.uniroma3.siw.repository.UserRepository;
@@ -27,6 +33,8 @@ public class UserService {
     @Autowired
     protected UserRepository userRepository;
     
+    private static String UPLOADED_FOLDER = "src/main/resources/static/images/newCuochi/";
+
    
     /**
      * This method retrieves a User from the DB based on its ID.
@@ -75,16 +83,13 @@ public class UserService {
     }    
     
    
-
     @Transactional
-	public void updateUser(Long id, User newC) {
-    	
-    	User oldC = (User)credentialsRepository.findById(id).get().getUser();
-    	
-    	newC.setId(oldC.getId());
-    	newC.setEmail(oldC.getEmail());
-    	newC.setCuoco(oldC.getCuoco());
-    	
+    public void updateUser(Long id, User newC, @RequestParam("file") MultipartFile file, Model model) {
+        User oldC = credentialsRepository.findById(id).get().getUser();
+
+        // Copying all fields from newC to oldC
+        
+      
     	
     	if (newC.getName() != null && !newC.getName().equals(oldC.getName())) {
             oldC.setName(newC.getName());
@@ -101,18 +106,22 @@ public class UserService {
         if (newC.getDate() != null && !newC.getDate().equals(oldC.getDate())) {
             oldC.setDate(newC.getDate());
         }
-        
-        if (newC.getFoto() != null && !newC.getFoto().equals(oldC.getFoto())) {
-            oldC.setFoto(newC.getFoto());
+
+        if (file != null && !file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+                Files.write(path, bytes);
+                oldC.setFoto("/images/newCuochi/" + file.getOriginalFilename());
+            } catch (IOException e) {
+                e.printStackTrace();
+                model.addAttribute("message", "Failed to upload image");
+            }
         }
 
-     
-        
-        Credentials c = credentialsRepository.findByUser(oldC);
-        c.setUser(newC);
-        credentialsRepository.save(c);
-    	
-      
-}
+        // Save the updated user
+        userRepository.save(oldC);
+    }
+
 
 }

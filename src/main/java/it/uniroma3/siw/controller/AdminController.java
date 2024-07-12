@@ -51,12 +51,12 @@ public class AdminController {
 	
 	
  
-	
 	@PostMapping("/editUser/{id}")
-	public String editUser( @ModelAttribute("user") User c, @PathVariable("id") Long id ) {
-		userService.updateUser(id, c);
-		return "redirect:/myPage";
+	public String editUser(@ModelAttribute("user") User c, @PathVariable("id") Long id, @RequestParam("file") MultipartFile file, Model model) {
+	    userService.updateUser(id, c, file, model);
+	    return "redirect:/myPage";
 	}
+
 	
 	@GetMapping("/editRicetta/{id}")
 	public String editRicetta(@PathVariable("id") Long id, Model m) {

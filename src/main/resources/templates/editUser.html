@@ -49,7 +49,7 @@
             </h4>
             
             
-            <form th:action="@{/editUser/{id}(id=${id})}" th:object="${user}" method="post">
+            <form th:action="@{/editUser/{id}(id=${id})}" th:object="${user}" method="post" enctype="multipart/form-data">
 				
 				
 		<div>
@@ -134,7 +134,7 @@
 		</div>
 		
 		
-		<!--Foto--
+		<!--Foto-->
 		<div class="input-group mt-2">
 		  <input type="file" class="form-control" id="file" name="file">
 		  <label class="input-group-text" for="inputGroupFile02" >Foto Profilo</label>

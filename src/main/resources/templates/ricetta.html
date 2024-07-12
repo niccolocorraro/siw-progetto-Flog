@@ -53,9 +53,7 @@
 		 <h4 th:if="${ricetta.cuoco == null or ricetta.cuoco == ''}">Cuoco: Anonimo</h4>
 			<div th:unless="${ricetta.cuoco == null or ricetta.cuoco == ''}">
 				
-                                            <a th:href="@{'/cuoco2' + '/' + ${ricetta.cuoco.id}}">Dettagli</a>	
-
-
+       	     <a class="btn btn-outline-dark" th:href="@{'/cuoco2' + '/' + ${ricetta.cuoco.id}}">Cuoco</a>	
 			</div>
 	
 			
