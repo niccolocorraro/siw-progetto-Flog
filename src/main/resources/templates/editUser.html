@@ -38,125 +38,77 @@
 
     <div class="container-lg my-1  ">
       <div class="row  text-center blu1 bordo">
-        <div class="col-lg-7 col-md-5 ">
-            <img class="img-fluid img-thumbnail my-4" src="/images/grafiche/regi.jpg" style="width: 600px; height: auto;">
-        </div>
+
         
-        <div class="col-lg-5 col-md-5 p-5  text-center p-3">
-
-            <h4 class="display-4 ">
-                REGISTRATI
-            </h4>
-            
-            
-            <form th:action="@{/editUser/{id}(id=${id})}" th:object="${user}" method="post" enctype="multipart/form-data">
-				
-				
-		<div>
-			
-			<!--Name-->	
-        <div class="row my-3">
-		  <div class="col">
-              <label for="name" class="form-label carta-testo">Name</label>
-			  <input id="name" name="name" th:value="*{name}" type="text" class="form-control" placeholder="First name" aria-label="First name">
-		  </div>
-		<!--Surname-->
-		  <div class="col">
-            <label for="surname" class="form-label carta-testo">Surname</label>
-			  <input id="surname" name="surname" th:value="*{surname}" type="text" class="form-control" placeholder="Last name" aria-label="Last name">
-		  </div>
-		</div>
-		
-		
-		</div>
-		
-		
-		
-		<!--Descrizione-->
-		<div class="input-group my-2">
-		  <span class="input-group-text">Biografia</span>
-		  <textarea id="bio" name="bio" class="form-control" aria-label="With textarea" th:value="${user.bio}"></textarea>
-		</div>
-		
-		<!--date-->
-		<div class="col my-2">
-		 <input type="text" class="form-control" id="date" name="date" placeholder="Data di nascita" required th:value="${user.date}" />
-		</div>
-			
-
-		<!--
-			
-		<div class="mt-2">
-			<div class="row ">
-		<!--Username--
-			  <div class="col">
-				  <div class="input-group flex-nowrap ">
-		
-					<span class="input-group-text" id="addon-wrapping">@</span>
-					<input type="text" class="form-control" placeholder="username" aria-label="Username" aria-describedby="addon-wrapping" required th:field="${credentials.username}" />
-					
-					<span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"
-						th:style="'color:red'">
-					</span>			
-				</div>
-			  </div>
-	     <!--date--
-			  <div class="col">
-			    <input type="text" class="form-control" id="colFormLabel" placeholder="Data di nascita" required th:field="${user.date}" />
-			  </div>
-			</div>
-	
-		</div>
-		
-		<!--Email--
-		<div class="mt-2">
-			
-			<div class="row ">
-			  <div class="col">
-			    <input type="email" class="form-control" id="colFormLabel" placeholder="Email" required th:field="${user.email}" />
-				<span th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}" th:style="'color:red'">
-				</span>			  
-			  </div>
-			</div>
-		
-		</div>
-		
-		<!--Password--
-		<div class=" mt-2">
-			
-			<div class="row ">
-		    <div class="col">
-		      <input type="password" class="form-control" placeholder="password" id="inputPassword3" required th:field="${credentials.password}" />
-			  <span th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"th:style="'color:red'"></span>		    
-		    </div>
-		  </div>
-			
-		</div>
-		
-		
-		<!--Foto-->
-		<div class="input-group mt-2">
-		  <input type="file" class="form-control" id="file" name="file">
-		  <label class="input-group-text" for="inputGroupFile02" >Foto Profilo</label>
-		</div>
-		
-		<!--Descrizione--
-		<div class="input-group mt-2">
-		  <span class="input-group-text">Biografia</span>
-		  <textarea class="form-control" aria-label="With textarea" th:field="${user.bio}"></textarea>
-		</div>
-		
-		-->
-		
-		
-	
-		<div>
-			<button class=" mt-2 btn btn-outline-dark" type="submit">Registra</button>
-		</div>
-	</form>
-
+        <div class="col-lg-5 col-md-5 p-5 text-center p-3">
+                <h4 class="display-4">Modifica Utente</h4>
+                <form th:action="@{/editUser/{id}(id=${id})}" th:object="${user}" method="post" enctype="multipart/form-data">
+                    <div class="row my-3">
+						
+						<!--nome-->
+                        <div class="col">
+                            <label for="name" class="form-label carta-testo">Name</label>
+                            <input id="name" name="name" th:value="*{name}" type="text" class="form-control" placeholder="First name" aria-label="First name">
+                        </div>
+                        <!--surname-->
+                        <div class="col">
+                            <label for="surname" class="form-label carta-testo">Surname</label>
+                            <input id="surname" name="surname" th:value="*{surname}" type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+                        </div>
+                    </div>
+                    
+                    <!--bio-->
+                    <div class="input-group my-2">
+                        <span class="input-group-text">Biografia</span>
+                        <textarea id="bio" name="bio" class="form-control" aria-label="With textarea" th:value="${user.bio}"></textarea>
+                    </div>
+                   
+                    
+                    <div class="mt-2">
+                        <div class="row">
+							
+							<!--email-->
+                            <div class="col">
+                                <label for="email" class="form-label carta-testo">Email</label>
+                                <input id="email" name="email" type="email" class="form-control" placeholder="Email" required th:value="${user.email}" />
+                            </div>
+                            
+                            <!--username-->
+                            <div class="col">
+                                <label for="username" class="form-label carta-testo">Username</label>
+                                <input id="username" name="username" type="text" class="form-control" placeholder="Username" required th:value="${credentials.username}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <div class="row">
+							
+							<!--pass-->
+                            <div class="col">
+                                <label for="password" class="form-label carta-testo">Password</label>
+                                <input id="password" name="password" type="password" class="form-control" placeholder="Password" required />
+                            </div>
+                            
+                            <!--data-->
+		                    <div class="col ">
+                                <label for="data" class="form-label carta-testo">Data di nascita</label>
+		                        <input type="text" class="form-control" id="date" name="date" placeholder="Data di nascita" required th:value="${user.date}" />
+		                    </div>
+		                    
+                        </div>
+                    </div>
+                    <div class="input-group mt-2">
+                        <input type="file" class="form-control" id="file" name="file">
+                        <label class="input-group-text" for="file">Foto Profilo</label>
+                    </div>
+                    <div>
+                        <button class="mt-2 btn btn-outline-dark" type="submit">Aggiorna</button>
+                    </div>
+                </form>
+            </div>
+          <div class="col-lg-7 col-md-5 ">
+            <img class="img-fluid img-thumbnail my-4" src="/images/grafiche/brigada.jpeg" style="width: 500px; height: auto;">
         </div>
-            
         
       </div>
 

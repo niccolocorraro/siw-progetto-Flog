@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.CredentialsRepository;
@@ -44,16 +45,26 @@ public class AdminController {
 	
 	@GetMapping("/editUser/{id}")
 	public String editUser(@PathVariable("id") Long id,Model model) {
-		model.addAttribute("user", credentialsRepository.findById(id).get().getUser());
-		model.addAttribute("id",id);
+		
+		
+		Credentials credentials = credentialsRepository.findAllById(id);
+		User user = credentials.getUser();
+		
+		model.addAttribute("user", user);
+		model.addAttribute("credentials", credentials);
 		return "editUser";
 	}
 	
 	
  
 	@PostMapping("/editUser/{id}")
-	public String editUser(@ModelAttribute("user") User c, @PathVariable("id") Long id, @RequestParam("file") MultipartFile file, Model model) {
-	    userService.updateUser(id, c, file, model);
+	public String editUser(@ModelAttribute("user") User c, @PathVariable("id") Long id,
+	                       @RequestParam("file") MultipartFile file,
+	                       @RequestParam("email") String email,
+	                       @RequestParam("username") String username,
+	                       @RequestParam("password") String password,
+	                       Model model) {
+	    userService.updateUser(id, c, email, password, username, file, model);
 	    return "redirect:/myPage";
 	}
 

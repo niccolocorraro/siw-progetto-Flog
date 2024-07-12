@@ -10,10 +10,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Credentials;
@@ -34,6 +34,8 @@ public class UserService {
     protected UserRepository userRepository;
     
     private static String UPLOADED_FOLDER = "src/main/resources/static/images/newCuochi/";
+
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
    
     /**
@@ -84,29 +86,24 @@ public class UserService {
     
    
     @Transactional
-    public void updateUser(Long id, User newC, @RequestParam("file") MultipartFile file, Model model) {
+    public void updateUser(Long id, User newC, String newEmail, String newPassword, String newUsername, MultipartFile file, Model model) {
         User oldC = credentialsRepository.findById(id).get().getUser();
-
-        // Copying all fields from newC to oldC
         
-      
-    	
-    	if (newC.getName() != null && !newC.getName().equals(oldC.getName())) {
+        // Aggiorna i dettagli dell'utente
+        if (newC.getName() != null && !newC.getName().equals(oldC.getName())) {
             oldC.setName(newC.getName());
         }
-
         if (newC.getSurname() != null && !newC.getSurname().equals(oldC.getSurname())) {
             oldC.setSurname(newC.getSurname());
         }
-        
         if (newC.getBio() != null && !newC.getBio().equals(oldC.getBio())) {
             oldC.setBio(newC.getBio());
         }
-
         if (newC.getDate() != null && !newC.getDate().equals(oldC.getDate())) {
             oldC.setDate(newC.getDate());
         }
 
+        // Aggiorna l'immagine del profilo
         if (file != null && !file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
@@ -119,9 +116,21 @@ public class UserService {
             }
         }
 
-        // Save the updated user
-        userRepository.save(oldC);
+        // Aggiorna i dettagli delle credenziali
+        Credentials credentials = credentialsRepository.findByUser(oldC);
+        if (newEmail != null && !newEmail.equals(credentials.getUser().getEmail())) {
+            credentials.getUser().setEmail(newEmail);
+        }
+        if (newUsername != null && !newUsername.equals(credentials.getUsername())) {
+            credentials.setUsername(newUsername);
+        }
+        if (newPassword != null && !newPassword.isEmpty()) {
+            credentials.setPassword(newPassword); // Assicurati che la password sia crittografata
+        }
+        credentialsRepository.save(credentials);
+        userRepository.save(oldC); // Salva le modifiche apportate all'entità User
     }
+
 
 
 }

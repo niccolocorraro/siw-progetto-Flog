@@ -15,6 +15,8 @@ public interface CredentialsRepository extends CrudRepository<Credentials, Long>
 	public Credentials findByUser(User user);
 	
 	public List<Credentials> findAllByRole(String role);
+	
+	public Credentials findAllById(Long id);
 
 
 }

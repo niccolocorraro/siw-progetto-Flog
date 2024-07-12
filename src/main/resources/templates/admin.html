@@ -75,7 +75,7 @@
    
   	<!--ricette-->
     <div class="container text-center my-1">
-        <div class="row  mt-1 blu2 " style="border-top-right-radius: 15px; border-top-left-radius: 15px;">
+        <div class="row  mt-1 blu2 bordo" >
           <div class="col p-2  ">
   
 			<h4 class="display-4 d-flex justify-content-start"  >Users</h4>
@@ -94,7 +94,7 @@
 		        <li th:each="user : ${users}" class="list-group-item" >
 		            <div style="display: flex; justify-content: space-between; align-items: center;">
 		                <div>
-		                    <h5 class="carta-testo" th:text="${user.user.name}"></h5>
+		                    <h5 class="carta-testo" th:text="${user.user.name} + ' ' + ${user.user.surname}"></h5>
 		                </div>
 		                
 		                <div style="display: flex; justify-content: end; align-items: center;">
