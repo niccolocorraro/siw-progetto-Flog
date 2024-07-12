@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Ricetta;
@@ -50,11 +52,11 @@ public class RicettaService {
         return allRicette.subList(0, Math.min(count, allRicette.size()));
 	}
 	
-	public void updateRicetta(Long id, @Valid Ricetta newRicetta, MultipartFile file) {
+	public void updateRicetta(Long id, @Valid Ricetta newRicetta,@RequestParam("file") MultipartFile file, Model model) {
 		
 		Ricetta oldRicetta = ricettaRepository.findById(id).get();
-	    
-		newRicetta.setCuoco(oldRicetta.getCuoco());
+		
+			   
 	    
 	    if (newRicetta.getNome() != null && !newRicetta.getNome().equals(oldRicetta.getNome())) {
             oldRicetta.setNome(newRicetta.getNome());
@@ -69,32 +71,21 @@ public class RicettaService {
         }
 	    
 
-        if (!file.isEmpty()) {
-            try {
-                byte[] bytes = file.getBytes();
-                Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-                Files.write(path, bytes);
-                oldRicetta.setFoto("/images/editedPiatti/" + file.getOriginalFilename());
-            } catch (IOException e) {
-                e.printStackTrace();
-                // Gestire l'errore se necessario
-            }
-        }
-        else {
-        	 try {
-                 byte[] bytes = file.getBytes();
-                 Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-                 Files.write(path, bytes);
-                 oldRicetta.setFoto(oldRicetta.getFoto());
-             } catch (IOException e) {
-                 e.printStackTrace();
-                 // Gestire l'errore se necessario
-             }
-        }
+	    if (file != null && !file.isEmpty()) {
+	        try {
+	            byte[] bytes = file.getBytes();
+	            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+	            Files.write(path, bytes);
+	            oldRicetta.setFoto("/images/editedPiatti/" + file.getOriginalFilename());
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            model.addAttribute("message", "Failed to upload image");
+	        }
+	    }
 	    
 	    
 
-	    ricettaRepository.save(newRicetta);
+	    ricettaRepository.save(oldRicetta);
 	    
 		
 	}

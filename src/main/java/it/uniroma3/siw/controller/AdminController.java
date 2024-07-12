@@ -78,11 +78,11 @@ public class AdminController {
 	
 	@PostMapping("/editRicetta/{id}")
 	public String editRicetta(Model m,@Valid @ModelAttribute("ricetta") Ricetta r,  @PathVariable("id") Long id,
-			@RequestParam("file") MultipartFile file) {
+			@RequestParam("file") MultipartFile file,Model model) {
 		
 	
 		
-		ricettaService.updateRicetta(id,r,file);
+		ricettaService.updateRicetta(id,r,file,model);
 		return "redirect:/myPage";
 	}
 	
@@ -97,7 +97,7 @@ public class AdminController {
 		return "redirect:/myPage"; 
 	}
 	
-	@GetMapping("/ricetta/delete/{id}")
+	@GetMapping("/ricetta/{id}/delete")
     public String getRicetta(@PathVariable Long id) {
         ricettaService.deleteRicetta(id);
         return "redirect:/myPage"; 
