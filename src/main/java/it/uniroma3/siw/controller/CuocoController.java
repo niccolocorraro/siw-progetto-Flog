@@ -59,6 +59,13 @@ public class CuocoController {
     }
 	
 	
+	@GetMapping("/ricettePreferite/{id}")
+	public String getPreferite(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("cuoco", this.userRepository.findById(id).get());
+		return "preferite.html";
+	}
+	
+	
 
 	
 }

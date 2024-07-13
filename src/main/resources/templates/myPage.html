@@ -35,6 +35,10 @@
 		  <div class="col d-flex justify-content-end">
 			    <a class="btn bi bi-arrow-return-right" style="background-color: white;" href="/logout"></a>
 			</div>
+			
+			 <div class="col d-flex justify-content-end">
+			    <a class="btn bi bi-heart" style="background-color: white;" th:href="@{'/ricettePreferite' + '/' + ${user.id}}"></a>
+			</div>
 
 		</div>
 

@@ -32,6 +32,8 @@ public class Ricetta {
         
 		@ManyToOne
         private Cuoco cuoco;
+		
+	
 	
 		private String portata; 
 		

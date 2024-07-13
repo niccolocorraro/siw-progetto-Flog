@@ -80,6 +80,42 @@ public class RicettaController {
         return "foundRicette.html";
     } 
 	
+	@GetMapping("/addRicetta/{id}")
+    public String addRicetta(@PathVariable("id") Long id, Model model,Authentication authentication) {
+        Ricetta ricetta = ricettaRepository.findById(id).get();
+        
+        String username = authentication.getName();
+        Optional<Credentials> c = credentialsRepository.findByUsername(username);
+        User u = c.get().getUser();
+        
+        Cuoco cuoco = u.getCuoco();
+        cuoco.getRicettePreferite().add(ricetta);
+        this.cuocoRepository.save(cuoco);
+       
+        return "redirect:/";
+    }
+	
+	@GetMapping("/removeRicetta/{id}")
+    public String removeRicetta(@PathVariable("id") Long id, Model model,Authentication authentication) {
+        
+        String username = authentication.getName();
+        Optional<Credentials> c = credentialsRepository.findByUsername(username);
+        User u = c.get().getUser();
+        
+        Cuoco cuoco = u.getCuoco();
+
+        if (cuoco != null) {
+            Ricetta ricettaDaRimuovere = ricettaRepository.findById(id).get();;
+            if (ricettaDaRimuovere != null) {
+                cuoco.rimuoviRicettaPreferita(ricettaDaRimuovere);
+                this.cuocoRepository.save(cuoco);
+            }
+        }
+        return "redirect:/"; 
+    }
+	
+	
+	
 	
 	 
     @GetMapping("/newRicetta")

@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import java.util.Iterator;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -18,6 +19,9 @@ public class Cuoco {
 	
 	@OneToMany(mappedBy="cuoco")
 	private List<Ricetta> ricette;
+	
+    @OneToMany
+	private List<Ricetta> ricettePreferite;
 	
 	@OneToOne
 	private User user;
@@ -55,6 +59,25 @@ public class Cuoco {
 	public String toString() {
 		return "Cuoco [id=" + id + ", ricette=" + ricette + ", user=" + user + "]";
 	}
+
+	public List<Ricetta> getRicettePreferite() {
+		return ricettePreferite;
+	}
+
+	public void setRicettePreferite(List<Ricetta> ricettePreferite) {
+		this.ricettePreferite = ricettePreferite;
+	}
+	
+	 public void rimuoviRicettaPreferita(Ricetta ricetta) {
+	        Iterator<Ricetta> iterator = ricettePreferite.iterator();
+	        while (iterator.hasNext()) {
+	            Ricetta r = iterator.next();
+	            if (r.equals(ricetta)) {
+	                iterator.remove();
+	                break;
+	            }
+	        }
+	    }
 	
 	
 
