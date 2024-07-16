@@ -33,6 +33,9 @@
 
 		<div th:if="${#authorization.expression('isAuthenticated()')}"> 
 			<a th:href="@{/myPage}" class="btn bi bi-person-circle ms-1">My Page</a>
+
+		</div>
+		<div th:if="${#authentication.authorities[0].authority == 'DEFAULT'}">
 		    <a class="btn bi bi-heart" th:href="@{/ricettePreferite}"></a>
 
 		</div>

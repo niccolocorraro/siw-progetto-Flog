@@ -56,7 +56,10 @@
        	     <a class="btn btn-outline-dark" th:text="'Cuoco: ' + ${ricetta.cuoco.user.name} +' '+ ${ricetta.cuoco.user.surname}" th:href="@{'/cuoco2' + '/' + ${ricetta.cuoco.id}}">Cuoco</a>	
 			</div>
 	
-			<a type="button" class="btn btn-outline-dark"  th:href="@{/addRicetta/{id}(id=${ricetta.id})}"> Add to favorites</a>
+			<div th:if="${#authentication.authorities[0].authority == 'DEFAULT'}">
+				<a type="button" class="btn btn-outline-dark"  th:href="@{/addRicetta/{id}(id=${ricetta.id})}"> Add to favorites</a>
+			</div>
+			
 			
 			
         </div>
