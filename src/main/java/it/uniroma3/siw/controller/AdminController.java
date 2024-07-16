@@ -92,7 +92,7 @@ public class AdminController {
         switch(c.get().getRole()) {
         case "DEFAULT": 
         	if(u.equals(ricettaRepository.findById(id).get().getCuoco().getUser())) {
-	    		ricettaService.updateRicetta(id,r,file,model);
+	    		ricettaService.updateRicetta(id,r);
 	    		return "redirect:/myPage";
 	    	}
 	    	else {
@@ -100,14 +100,12 @@ public class AdminController {
 	    	}
         case "ADMIN":
 
-        	ricettaService.updateRicetta(id,r,file,model);
+        	ricettaService.updateRicetta(id,r);
 			return "redirect:/myPage";
       }
 	    
 	    return "redirect:/";
-	    
-	   
-		
+
 		
 	}
 	

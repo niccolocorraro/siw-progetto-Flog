@@ -52,7 +52,7 @@ public class RicettaService {
         return allRicette.subList(0, Math.min(count, allRicette.size()));
 	}
 	
-	public void updateRicetta(Long id, @Valid Ricetta newRicetta,@RequestParam("file") MultipartFile file, Model model) {
+	public void updateRicetta(Long id, @Valid Ricetta newRicetta) {
 		
 		Ricetta oldRicetta = ricettaRepository.findById(id).get();
 		
@@ -71,17 +71,7 @@ public class RicettaService {
         }
 	    
 
-	    if (file != null && !file.isEmpty()) {
-	        try {
-	            byte[] bytes = file.getBytes();
-	            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-	            Files.write(path, bytes);
-	            oldRicetta.setFoto("/images/editedPiatti/" + file.getOriginalFilename());
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	            model.addAttribute("message", "Failed to upload image");
-	        }
-	    }
+	   
 	    
 	    
 
