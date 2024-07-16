@@ -1,6 +1,10 @@
 package it.uniroma3.siw.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -78,12 +82,33 @@ public class AdminController {
 	
 	@PostMapping("/editRicetta/{id}")
 	public String editRicetta(Model m,@Valid @ModelAttribute("ricetta") Ricetta r,  @PathVariable("id") Long id,
-			@RequestParam("file") MultipartFile file,Model model) {
+			@RequestParam("file") MultipartFile file,Model model,Authentication authentication) {
 		
-	
+		String email = authentication.getName();
+	    Optional<Credentials> c = credentialsRepository.findByUsername(email);
+	    User u = c.get().getUser();
+	    
+
+        switch(c.get().getRole()) {
+        case "DEFAULT": 
+        	if(u.equals(ricettaRepository.findById(id).get().getCuoco().getUser())) {
+	    		ricettaService.updateRicetta(id,r,file,model);
+	    		return "redirect:/myPage";
+	    	}
+	    	else {
+	    		return "redirect:/myPage";
+	    	}
+        case "ADMIN":
+
+        	ricettaService.updateRicetta(id,r,file,model);
+			return "redirect:/myPage";
+      }
+	    
+	    return "redirect:/";
+	    
+	   
 		
-		ricettaService.updateRicetta(id,r,file,model);
-		return "redirect:/myPage";
+		
 	}
 	
 	

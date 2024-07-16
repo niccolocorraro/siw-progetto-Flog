@@ -53,7 +53,7 @@
 		 <h4 th:if="${ricetta.cuoco == null or ricetta.cuoco == ''}">Cuoco: Anonimo</h4>
 			<div class="my-2" th:unless="${ricetta.cuoco == null or ricetta.cuoco == ''}">
 				
-       	     <a class="btn btn-outline-dark" th:href="@{'/cuoco2' + '/' + ${ricetta.cuoco.id}}">Cuoco</a>	
+       	     <a class="btn btn-outline-dark" th:text="'Cuoco: ' + ${ricetta.cuoco.user.name} +' '+ ${ricetta.cuoco.user.surname}" th:href="@{'/cuoco2' + '/' + ${ricetta.cuoco.id}}">Cuoco</a>	
 			</div>
 	
 			<a type="button" class="btn btn-outline-dark"  th:href="@{/addRicetta/{id}(id=${ricetta.id})}"> Add to favorites</a>
@@ -95,8 +95,12 @@
 			    <li th:each="ingrediente : ${ricetta.ingredienti}" class="list-group-item" >
 					<div style="display: flex; justify-content: space-between; align-items: center;">
 	
-			        <h5 class="carta-testo" th:text="${ingrediente.nome} ">Review Title</h5>
-			        			        <h5 class="carta-testo" th:text="${ingrediente.num} ">Review Title</h5>
+			        <h5 class="carta-testo" style="width: 50%;" th:text="${ingrediente.nome} "></h5>
+			        <h5 class="carta-testo" style="width: 30%;" th:text="${ingrediente.num} "></h5>
+   			        <h5 class="carta-testo" style="width: 20%;" >
+						  <a type="button" class="btn btn-outline-primary btn-sm bi bi-search" th:href="'https://www.google.com/search?q=' + ${ingrediente.nome}" target="_blank">  Cerca </a> 
+					 </h5>
+
 
 			        </div>
 			    </li>
