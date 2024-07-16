@@ -89,6 +89,9 @@
           <h4 class="d-flex justify-content-start" th:text="'Biografia: ' +${user.bio}"></h4>
           <h4 class="d-flex justify-content-start" th:text="'Email: ' +${user.email}"></h4>
 
+		 <div class="  d-flex justify-content-end p-2" style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
+		 			  <a class="btn btn-outline-dark ms-4 my-2" style="width: 20%;" th:href="@{/editUser/{id}(id=${user.id})}">Modifica il profilo</a>
+			</div>
           
 
         </div>
@@ -139,7 +142,7 @@
 										      </div>
 										      <div class="modal-footer">
 										        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              									<a th:href="@{/ricetta/delete/{id}(id=${ricetta.id})}" class="btn btn-primary">Elimina</a>
+              									<a th:href="@{/ricetta/{id}/delete(id=${ricetta.id})}" class="btn btn-primary">Elimina</a>
 										      </div>
 										    </div>
 										  </div>

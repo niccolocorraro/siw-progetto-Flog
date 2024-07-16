@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +83,7 @@ public class AdminController {
 	
 	@PostMapping("/editRicetta/{id}")
 	public String editRicetta(Model m,@Valid @ModelAttribute("ricetta") Ricetta r,  @PathVariable("id") Long id,
-			@RequestParam("file") MultipartFile file,Model model,Authentication authentication) {
+			@RequestParam("file") MultipartFile file,Model model,Authentication authentication,@RequestParam Map<String, String> ingredienti) {
 		
 		String email = authentication.getName();
 	    Optional<Credentials> c = credentialsRepository.findByUsername(email);
@@ -92,7 +93,7 @@ public class AdminController {
         switch(c.get().getRole()) {
         case "DEFAULT": 
         	if(u.equals(ricettaRepository.findById(id).get().getCuoco().getUser())) {
-	    		ricettaService.updateRicetta(id,r);
+	    		ricettaService.updateRicetta(id,r,ingredienti);
 	    		return "redirect:/myPage";
 	    	}
 	    	else {
@@ -100,7 +101,7 @@ public class AdminController {
 	    	}
         case "ADMIN":
 
-        	ricettaService.updateRicetta(id,r);
+        	ricettaService.updateRicetta(id,r,ingredienti);
 			return "redirect:/myPage";
       }
 	    

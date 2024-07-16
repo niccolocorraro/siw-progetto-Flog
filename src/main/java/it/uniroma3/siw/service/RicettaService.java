@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.model.Ingrediente;
 import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.repository.IngredienteRepository;
 import it.uniroma3.siw.repository.RicettaRepository;
@@ -52,7 +54,7 @@ public class RicettaService {
         return allRicette.subList(0, Math.min(count, allRicette.size()));
 	}
 	
-	public void updateRicetta(Long id, @Valid Ricetta newRicetta) {
+	public void updateRicetta(Long id, @Valid Ricetta newRicetta,@RequestParam Map<String, String> ingredienti) {
 		
 		Ricetta oldRicetta = ricettaRepository.findById(id).get();
 		
@@ -70,9 +72,35 @@ public class RicettaService {
             oldRicetta.setDescrizione(newRicetta.getDescrizione());
         }
 	    
-
-	   
 	    
+	    if(!ingredienti.isEmpty() && ingredienti != null) {
+		    try {
+		    	oldRicetta.getIngredienti().clear();
+	        	for (int i = 0; ; i++) {
+	                String nomeIngrediente = ingredienti.get("ingredienti[" + i + "].nome");
+	                String quantitaIngrediente = ingredienti.get("ingredienti[" + i + "].num");
+	
+	                if (nomeIngrediente == null || quantitaIngrediente == null) {
+	                    break;
+	                }
+	
+	                // Validazione dell'ingrediente
+	                if (nomeIngrediente.isBlank() || quantitaIngrediente.isBlank()) {
+	                    throw new IllegalArgumentException("Nome o quantità dell'ingrediente non validi");
+	                }
+	
+	                Ingrediente ingrediente = new Ingrediente();
+	                ingrediente.setNome(nomeIngrediente);
+	                ingrediente.setNum(quantitaIngrediente);
+	                ingrediente.setRicetta(oldRicetta);
+	                oldRicetta.getIngredienti().add(ingrediente);
+	            }
+	        	
+	        } catch (Exception e) {
+	
+	        	e.printStackTrace();    
+	        }
+	    }
 	    
 
 	    ricettaRepository.save(oldRicetta);
