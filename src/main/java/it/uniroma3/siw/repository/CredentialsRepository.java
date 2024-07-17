@@ -19,4 +19,5 @@ public interface CredentialsRepository extends CrudRepository<Credentials, Long>
 	public Credentials findAllById(Long id);
 
 
+	public boolean existByUsername(String username);
 }
