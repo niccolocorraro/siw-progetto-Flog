@@ -89,8 +89,12 @@ public class RicettaController {
         User u = c.get().getUser();
         
         Cuoco cuoco = u.getCuoco();
-        cuoco.getRicettePreferite().add(ricetta);
-        this.cuocoRepository.save(cuoco);
+        
+        if (!cuoco.getRicettePreferite().contains(ricetta)) {
+        	cuoco.getRicettePreferite().add(ricetta);
+            this.cuocoRepository.save(cuoco);
+        }
+       
        
         return "redirect:/";
     }

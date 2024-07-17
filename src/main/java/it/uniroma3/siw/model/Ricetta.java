@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
@@ -33,7 +34,8 @@ public class Ricetta {
 		@ManyToOne
         private Cuoco cuoco;
 		
-	
+		//@ManyToMany(mappedBy = "ricettePreferite")
+	   // private List<Cuoco> cuochiPreferiti;
 	
 		private String portata; 
 		

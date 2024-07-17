@@ -54,7 +54,8 @@ public class RicettaService {
         return allRicette.subList(0, Math.min(count, allRicette.size()));
 	}
 	
-	public void updateRicetta(Long id, @Valid Ricetta newRicetta,@RequestParam Map<String, String> ingredienti) {
+	public void updateRicetta(Long id, @Valid Ricetta newRicetta,@RequestParam("file") MultipartFile file, Model model,
+			@RequestParam Map<String, String> ingredienti) {
 		
 		Ricetta oldRicetta = ricettaRepository.findById(id).get();
 		
@@ -71,6 +72,19 @@ public class RicettaService {
 	    if (newRicetta.getDescrizione() != null && !newRicetta.getDescrizione().equals(oldRicetta.getDescrizione())) {
             oldRicetta.setDescrizione(newRicetta.getDescrizione());
         }
+	    
+	    if (file != null && !file.isEmpty()) {
+	        try {
+	            byte[] bytes = file.getBytes();
+	            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+	            Files.write(path, bytes);
+	            oldRicetta.setFoto("/images/editedPiatti/" + file.getOriginalFilename());
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            model.addAttribute("message", "Failed to upload image");
+	        }
+	    }
+
 	    
 	    
 	    if(!ingredienti.isEmpty() && ingredienti != null) {

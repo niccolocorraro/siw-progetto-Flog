@@ -39,7 +39,9 @@
     <div class="row mt-1" style="border-top-right-radius: 15px; border-top-left-radius: 15px;">
       <div class="col p-2">
         <h4 class="display-4 d-flex justify-content-start">Ricette Preferite:</h4>
-        <div th:if="${cuoco.cuoco.ricettePreferite.isEmpty()}">Non ci sono Ricette nei Preferiti</div>
+        
+        <div th:if="${cuoco.cuoco.ricettePreferite == null and cuoco.cuoco.ricettePreferite.isEmpty()}">Non ci sono Ricette nei Preferiti</div>
+        
         <div class="row justify-content-center">
           <div class="col-lg-2 col-md-3 mb-2" th:each="ricetta, iterStat : ${cuoco.cuoco.ricettePreferite}">
             <div class="card coluno" style="border-radius: 20px;border-color: #b5e8e9; border-style: double;">
